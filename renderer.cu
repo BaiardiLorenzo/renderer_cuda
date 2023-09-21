@@ -15,33 +15,27 @@ void generateCircles(Circle circles[], unsigned long long n) {
     }
 }
 
-double rendererParallel(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles) {
-    printf("RENDERER PARALLEL %llu: ", nPlanes);
-    cv::Mat planes[10];
+double rendererSequential(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles) {
+    printf("RENDERER SEQUENTIAL %llu: ", nPlanes);
+    cv::Mat* planes = new cv::Mat[nPlanes];
 
-    //double start = omp_get_wtime();
-
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < nPlanes; i++) {
         planes[i] = cv::Mat(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
         for (int j = 0; j < nCircles; j++) {
             Circle circle = circles[i * nCircles + j];
             cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
         }
     }
-    printf("ok ");
+    cv::Mat result = combinePlanesSequential(planes, 1000);
 
-
-    cv::Mat result = combinePlanesParallel(planes, 1000);
-
-    //double time = omp_get_wtime() - start;
-
+    delete[] planes;
     printf(" TIME %d sec.\n", 0);
-    cv::imshow("test", result);
-    cv::waitKey();
+    //cv::imshow("test", result);
+    //cv::waitKey();
     return 0;
 }
 
-cv::Mat combinePlanesParallel(cv::Mat planes[], unsigned long long nPlanes) {
+cv::Mat combinePlanesSequential(cv::Mat planes[], unsigned long long nPlanes) {
     cv::Mat result(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
     int cn = result.channels();
     for (int i = 0; i < HEIGHT; i++) {
@@ -56,4 +50,25 @@ cv::Mat combinePlanesParallel(cv::Mat planes[], unsigned long long nPlanes) {
         }
     }
     return result;
+}
+
+
+double rendererParallel(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles) {
+    printf("RENDERER SEQUENTIAL %llu: ", nPlanes);
+    cv::Mat planes[100];
+
+
+    for (int i = 0; i < 100; i++) {
+        planes[i] = cv::Mat(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
+        for (int j = 0; j < nCircles; j++) {
+            Circle circle = circles[i * nCircles + j];
+            cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
+        }
+    }
+    cv::Mat result = combinePlanesSequential(planes, 1000);
+
+    printf(" TIME %d sec.\n", 0);
+    //cv::imshow("test", result);
+    //cv::waitKey();
+    return 0;
 }

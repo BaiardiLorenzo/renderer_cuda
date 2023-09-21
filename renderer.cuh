@@ -28,9 +28,11 @@ struct Circle {
 
 void generateCircles(Circle circles[], unsigned long long n);
 
-double rendererParallel(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles);
+double rendererSequential(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles);
 
-cv::Mat combinePlanesParallel(cv::Mat planes[], unsigned long long nPlanes);
+cv::Mat combinePlanesSequential(cv::Mat planes[], unsigned long long nPlanes);
+
+double rendererParallel(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles);
 
 
 #endif //RENDERER_CUDA_RENDERER_CUH
