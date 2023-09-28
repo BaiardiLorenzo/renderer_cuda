@@ -32,4 +32,8 @@ double rendererSequential(Circle circles[], std::size_t nPlanes, std::size_t nCi
 
 cv::Mat combinePlanesSequential(cv::Mat planes[], std::size_t nPlanes);
 
+double rendererParallel(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
+
+cv::Mat combinePlanesParallel(cv::Mat planes[], std::size_t nPlanes);
+
 #endif //RENDERER_CUDA_RENDERER_CUH

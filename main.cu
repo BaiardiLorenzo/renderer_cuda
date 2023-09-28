@@ -3,9 +3,9 @@
 #define TEST_PATH "../test.csv"
 #define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR\n"
 
-#define MAX_TESTS 100
-#define SPACE 10
-#define MIN_TEST 10
+#define MAX_TESTS 1000
+#define SPACE 100
+#define MIN_TEST 100
 #define N_CIRCLES 100
 
 void headerResults(){
@@ -25,10 +25,10 @@ void exportResults(int nThreads, double speedUp, std::size_t test, double tSeq, 
 }
 
 int main() {
-
+#ifdef _OPENMP
     printf("**Number of cores/threads: %d**\n", omp_get_num_procs());
     omp_set_dynamic(0);
-
+#endif
     headerResults();
     std::vector<std::size_t> testPlanes;
     for (std::size_t i = MIN_TEST; i <= MAX_TESTS; i += SPACE)
@@ -46,13 +46,13 @@ int main() {
 
             // TEST SEQUENTIAL AND PARALLEL
             double tSeq = rendererSequential(circles, test, N_CIRCLES);
-            //double tPar = rendererParallel(circles, test, N_CIRCLES);
+            double tPar = rendererParallel(circles, test, N_CIRCLES);
 
-            double speedUp = tSeq / tSeq;
+            double speedUp = tSeq / tPar;
             printf("Speedup: %f \n\n", speedUp);
 
             // WRITE RESULTS TO TXT FILE
-            exportResults(i,speedUp,test,tSeq,tSeq);
+            exportResults(i,speedUp,test,tSeq,tPar);
 
             // DELETE ARRAY DYNAMIC ALLOCATED
             delete[] circles;
