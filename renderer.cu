@@ -3,6 +3,7 @@
 Circle* generateCircles(std::size_t n) {
     auto* circles = new Circle[n];
     std::srand(777);
+#pragma omp parallel for default(none) shared(circles) firstprivate(n) // PARALLEL GENERATION CIRCLES
     for (int i = 0; i < n; i++) {
         cv::Scalar color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 255);
         cv::Point center(std::rand() % HEIGHT + 1, std::rand() % WIDTH + 1);
@@ -87,7 +88,7 @@ double rendererParallel(Circle circles[], std::size_t nPlanes, std::size_t nCirc
 cv::Mat combinePlanesParallel(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
     int cn = result.channels();
-#pragma omp parallel for default(none) shared(result, planes) firstprivate(nPlanes, cn)
+#pragma omp parallel for default(none) shared(result, planes) firstprivate(nPlanes, cn) collapse(2)
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
             for (int z = 0; z < nPlanes; z++) {

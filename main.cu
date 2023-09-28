@@ -34,7 +34,7 @@ int main() {
     for (std::size_t i = MIN_TEST; i <= MAX_TESTS; i += SPACE)
         testPlanes.push_back(i);
 
-    for (int i=2; i<=omp_get_num_procs(); i*=2) {
+    for (int i=2; i<=omp_get_num_procs(); i+=2) {
         //SET NUMBER OF THREADS
         printf("Number of cores/threads used: %d\n", i);
         omp_set_num_threads(i); // SET NUMBER OF THREADS
