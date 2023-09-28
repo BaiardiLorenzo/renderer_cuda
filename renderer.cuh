@@ -1,11 +1,11 @@
-//
-// Created by loreb on 07/06/2023.
-//
-
 #ifndef RENDERER_CUDA_RENDERER_CUH
 #define RENDERER_CUDA_RENDERER_CUH
 
-
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <iostream>
+#include <omp.h>
 #include <opencv2/core/types.hpp>
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
@@ -26,13 +26,10 @@ struct Circle {
     int r;
 };
 
-void generateCircles(Circle circles[], unsigned long long n);
+Circle* generateCircles(std::size_t n);
 
-double rendererSequential(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles);
+double rendererSequential(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
 
-cv::Mat combinePlanesSequential(cv::Mat planes[], unsigned long long nPlanes);
-
-double rendererParallel(Circle circles[], unsigned long long nPlanes, unsigned long long nCircles);
-
+cv::Mat combinePlanesSequential(cv::Mat planes[], std::size_t nPlanes);
 
 #endif //RENDERER_CUDA_RENDERER_CUH
