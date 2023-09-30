@@ -3,9 +3,9 @@
 #define TEST_PATH "../test.csv"
 #define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR\n"
 
-#define MAX_TESTS 1000
-#define SPACE 100
-#define MIN_TEST 100
+#define MAX_TESTS 100
+#define SPACE 10
+#define MIN_TEST 10
 #define N_CIRCLES 100
 
 void headerResults(){
@@ -47,6 +47,7 @@ int main() {
             // TEST SEQUENTIAL AND PARALLEL
             double tSeq = rendererSequential(circles, test, N_CIRCLES);
             double tPar = rendererParallel(circles, test, N_CIRCLES);
+            double tCuda = rendererCuda(circles, test, N_CIRCLES);
 
             double speedUp = tSeq / tPar;
             printf("Speedup: %f \n\n", speedUp);

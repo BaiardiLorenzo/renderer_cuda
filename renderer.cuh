@@ -6,6 +6,9 @@
 #include <fstream>
 #include <iostream>
 #include <omp.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/cuda.hpp>
+#include <opencv2/core/cuda/common.hpp>
 #include <opencv2/core/types.hpp>
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
@@ -35,5 +38,12 @@ cv::Mat combinePlanesSequential(cv::Mat planes[], std::size_t nPlanes);
 double rendererParallel(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
 
 cv::Mat combinePlanesParallel(cv::Mat planes[], std::size_t nPlanes);
+
+double rendererCuda(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
+
+cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes);
+
+__global__ void combinePlanesKernel(uchar* resultData, uchar** planesData, int width, int height, int nPlanes, int cn);
+
 
 #endif //RENDERER_CUDA_RENDERER_CUH

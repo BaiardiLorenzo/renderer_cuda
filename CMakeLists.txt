@@ -7,10 +7,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIR})
 
 add_executable(renderer_cuda main.cu renderer.cu renderer.cuh)
+
 target_link_libraries(renderer_cuda ${OpenCV_LIBS} "${OpenMP_CXX_FLAGS}")
 target_compile_options(renderer_cuda PRIVATE "${OpenMP_CXX_FLAGS}")
+
 set_target_properties(renderer_cuda PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 

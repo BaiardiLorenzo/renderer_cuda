@@ -102,3 +102,81 @@ cv::Mat combinePlanesParallel(cv::Mat planes[], std::size_t nPlanes) {
     }
     return result;
 }
+
+double rendererCuda(Circle circles[], std::size_t nPlanes, std::size_t nCircles) {
+    auto* planes = new cv::Mat[nPlanes];
+
+    // START
+    double start = omp_get_wtime();
+
+#pragma omp parallel for default(none) shared(planes, circles) firstprivate(nPlanes, nCircles)
+    for (int i = 0; i < nPlanes; i++) {
+        planes[i] = cv::Mat(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
+        for (int j = 0; j < nCircles; j++) {
+            Circle circle = circles[i * nCircles + j];
+            cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
+        }
+    }
+
+    cv::Mat result = combinePlanesCuda(planes, nPlanes);
+
+    double time = omp_get_wtime() - start;
+    // END
+    printf("Cuda time %f sec.\n", time);
+
+    delete[] planes;
+
+    cv::imwrite("../img/cuda_" + std::to_string(nPlanes) + ".png", result);
+    return time;
+}
+
+cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes){
+    cv::Mat result(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
+    int cn = result.channels();
+
+    // GPU PLANES AND GPU PLANE RESULT
+    cv::cuda::GpuMat gpuResult(result);
+    std::vector<cv::cuda::GpuMat> gpuPlanes(nPlanes);
+
+    // INITIALIZATION FROM CPU TO GPU
+    for (std::size_t i = 0; i < nPlanes; i++)
+        gpuPlanes[i] = cv::cuda::GpuMat(planes[i]);
+
+    // ALLOCATE GPU MEMORY TO STORE POINTERS @TODO CHECK ERROR ON d_planesData[i]
+    uchar** d_planesData;
+    cudaMalloc((void**)&d_planesData, nPlanes * sizeof(uchar*));
+    for (std::size_t i = 0; i < nPlanes; i++){
+        cv::cuda::GpuMat gpuPlane(planes[i]);
+        d_planesData[i] = gpuPlane.ptr<uchar>();
+    }
+    auto* d_resultData = gpuResult.ptr<uchar>();
+
+    // GRID AND BLOCK DIMENSIONS
+    dim3 block(16, 16);
+    dim3 grid((result.cols + block.x - 1) / block.x, (result.rows + block.y - 1) / block.y);
+
+    // CUDA KERNEL
+    combinePlanesKernel<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, nPlanes, cn);
+
+    cudaFree(d_planesData);
+
+    gpuResult.download(result);
+
+    return result;
+}
+
+__global__ void combinePlanesKernel(uchar* resultData, uchar** planesData, int width, int height, int nPlanes, int cn){
+    auto x = blockIdx.x * blockDim.x + threadIdx.x;
+    auto y = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (x < width && y < height){
+        for (int z = 0; z < nPlanes; z++){
+            uchar* srcData = planesData[z];
+            for (int c = 0; c < cn; c++){
+                auto idx = (y * width + x) * cn + c;
+                resultData[idx] = resultData[idx] * (1 - ALPHA) + srcData[idx] * ALPHA;
+            }
+        }
+    }
+}
+
