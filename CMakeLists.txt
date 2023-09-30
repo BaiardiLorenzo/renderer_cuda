@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(renderer_cuda CUDA)
-
+# @TODO SET CMAKE
 set(CMAKE_CUDA_STANDARD 23)
 set(OpenCV_DIR "C:\\src\\opencv\\build\\install")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
