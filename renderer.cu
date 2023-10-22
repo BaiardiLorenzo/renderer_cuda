@@ -2,14 +2,21 @@
 
 Circle* generateCircles(std::size_t n) {
     auto* circles = new Circle[n];
-    std::srand(777);
-#pragma omp parallel for default(none) shared(circles) firstprivate(n) // PARALLEL GENERATION CIRCLES
+    std::mt19937 generator(777);
+
+    std::uniform_int_distribution<int> colorDistribution(0, 255);
+    std::uniform_int_distribution<int> pointXDistribution(1, WIDTH);
+    std::uniform_int_distribution<int> pointYDistribution(1, HEIGHT);
+    std::uniform_int_distribution<int> radiusDistribution(MIN_RADIUS, MAX_RADIUS);
+
+#pragma omp parallel for default(none) shared(circles, generator)
     for (int i = 0; i < n; i++) {
-        cv::Scalar color(std::rand() % 256, std::rand() % 256, std::rand() % 256, 255);
-        cv::Point center(std::rand() % HEIGHT + 1, std::rand() % WIDTH + 1);
-        int r = std::rand() % (MAX_RADIUS - MIN_RADIUS) + MIN_RADIUS + 1;
-        circles[i] = {color, center, r};
+        cv::Scalar color(colorDistribution(generator), colorDistribution(generator), colorDistribution(generator), 255);
+        cv::Point center(pointXDistribution(generator), pointYDistribution(generator));
+        int r = radiusDistribution(generator);
+        circles[i] = Circle{color, center, r};
     }
+
     return circles;
 }
 
@@ -126,8 +133,8 @@ double rendererCuda(Circle circles[], std::size_t nPlanes, std::size_t nCircles)
 
     delete[] planes;
 
-    cv::imshow("TEST", result);
-    cv::waitKey(0);
+    // cv::imshow("TEST", result);
+    // cv::waitKey(0);
 
     cv::imwrite("../img/cuda_" + std::to_string(nPlanes) + ".png", result);
     return time;
@@ -137,14 +144,17 @@ cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
     int cn = result.channels();
 
-    auto** d_planesData = new uchar*[nPlanes];
     uchar* d_resultData;
+    uchar* d_planesData;
 
     // Initialize pointers on GPU
     cudaMalloc((void**)&d_resultData, WIDTH * HEIGHT * cn * sizeof(uchar));
+    cudaMalloc((void**)&d_planesData, WIDTH * HEIGHT * cn * sizeof(uchar) * nPlanes);
+
+    cudaMemcpy(d_resultData, result.data, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyHostToDevice);
     for (std::size_t i = 0; i < nPlanes; i++) {
-        cudaMalloc((void**)&d_planesData[i], WIDTH * HEIGHT * cn * sizeof(uchar));
-        cudaMemcpy(d_planesData[i], planes[i].data, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyHostToDevice);
+        uchar* d_plane = d_planesData + i * WIDTH * HEIGHT * cn;
+        cudaMemcpy(d_plane, planes[i].data, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyHostToDevice);
     }
 
     // GRID AND BLOCK DIMENSIONS
@@ -155,29 +165,25 @@ cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes) {
     combinePlanesKernel<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, (int)nPlanes, cn);
     cudaDeviceSynchronize();
 
+    // COPY RESULT FROM GPU TO CPU
     cudaMemcpy(result.data, d_resultData, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyDeviceToHost);
 
-    for (std::size_t i = 0; i < nPlanes; i++)
-        cudaFree(d_planesData[i]);
-    delete[] d_planesData;
+    // FREE MEMORY
+    cudaFree(d_planesData);
     cudaFree(d_resultData);
 
     return result;
 }
 
-__global__ void combinePlanesKernel(uchar* resultData, uchar** planesData, int width, int height, int nPlanes, int cn){
+__global__ void combinePlanesKernel(uchar* resultData, const uchar* planesData, int width, int height, int nPlanes, int cn) {
     auto x = blockIdx.x * blockDim.x + threadIdx.x;
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
 
-    if (x < width && y < height){
-        for (int c = 0; c < cn; c++){
+    if (x < width && y < height) {
+        for (int c = 0; c < cn; c++) {
             auto idx = (y * width + x) * cn + c;
-            float combinedValue = 0.0f;
-            for (int z = 0; z < nPlanes; z++){
-                uchar* srcData = planesData[z];
-                combinedValue += static_cast<float>(srcData[idx]);
-            }
-            resultData[idx] = static_cast<uchar>(combinedValue / nPlanes);
+            for (int z = 0; z < nPlanes; z++)
+                resultData[idx] = resultData[idx] * (1.0f - ALPHA) + planesData[z * width * height * cn + idx] * ALPHA;
         }
     }
 }

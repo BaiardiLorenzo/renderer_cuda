@@ -3,9 +3,9 @@
 #define TEST_PATH "../test.csv"
 #define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR\n"
 
-#define MAX_TESTS 100
-#define SPACE 10
-#define MIN_TEST 10
+#define MAX_TESTS 1000
+#define SPACE 100
+#define MIN_TEST 100
 #define N_CIRCLES 100
 
 void headerResults(){
