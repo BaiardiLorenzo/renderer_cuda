@@ -1,10 +1,10 @@
 #include "renderer.cuh"
 
 #define TEST_PATH "../test.csv"
-#define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR\n"
+#define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR;CUDA\n"
 
 #define MAX_TESTS 1000
-#define SPACE 100
+#define SPACE 200
 #define MIN_TEST 100
 #define N_CIRCLES 100
 
@@ -16,11 +16,11 @@ void headerResults(){
     outfile.close();
 }
 
-void exportResults(int nThreads, double speedUp, std::size_t test, double tSeq, double tPar){
+void exportResults(int nThreads, double speedUp, std::size_t test, double tSeq, double tPar, double tCuda){
     std::ofstream outfile;
     outfile.open(TEST_PATH, std::ios::out | std::ios::app);
     if (outfile.is_open())
-        outfile<<nThreads<<";"<<speedUp<<";"<<test<<";"<<tSeq<<";"<<tPar<<"\n";
+        outfile<<nThreads<<";"<<speedUp<<";"<<test<<";"<<tSeq<<";"<<tPar<<";"<<tCuda<<"\n";
     outfile.close();
 }
 
@@ -46,16 +46,18 @@ int main() {
             auto circles = generateCircles(n);
 
             // TEST SEQUENTIAL AND PARALLEL
-            // double tSeq = rendererSequential(circles, test, N_CIRCLES);
-            // double tPar = rendererParallel(circles, test, N_CIRCLES);
+            double tSeq = rendererSequential(circles, test, N_CIRCLES);
+            double tPar = rendererParallel(circles, test, N_CIRCLES);
             double tCuda = rendererCuda(circles, test, N_CIRCLES);
-            printf("CUDA time %f sec.\n", tCuda);
 
-            // double speedUp = tSeq / tPar;
-            // printf("Speedup: %f \n\n", speedUp);
+            // PRINT RESULTS
+            double speedUp = tSeq / tPar;
+            printf("Speedup: %f \n", speedUp);
+            double speedUpCuda = tSeq / tCuda;
+            printf("Speedup CUDA: %f \n\n", speedUpCuda);
 
-            // WRITE RESULTS TO TXT FILE
-            // exportResults(i,speedUp,test,tSeq,tPar);
+            //WRITE RESULTS TO TXT FILE
+            exportResults(i,speedUp,test,tSeq,tPar, tCuda);
 
             // DELETE ARRAY DYNAMIC ALLOCATED
             delete[] circles;

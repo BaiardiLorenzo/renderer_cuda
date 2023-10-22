@@ -44,7 +44,7 @@ double rendererCuda(Circle circles[], std::size_t nPlanes, std::size_t nCircles)
 
 cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes);
 
-__global__ void combinePlanesKernel(uchar* resultData, const uchar* planesData, int width, int height, int nPlanes, int cn);
+__global__ void combinePlanesKernel(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 
 
 #endif //RENDERER_CUDA_RENDERER_CUH
