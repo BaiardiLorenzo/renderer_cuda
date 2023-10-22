@@ -126,41 +126,41 @@ double rendererCuda(Circle circles[], std::size_t nPlanes, std::size_t nCircles)
 
     delete[] planes;
 
+    cv::imshow("TEST", result);
+    cv::waitKey(0);
+
     cv::imwrite("../img/cuda_" + std::to_string(nPlanes) + ".png", result);
     return time;
 }
 
-cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes){
+cv::Mat combinePlanesCuda(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT);
     int cn = result.channels();
 
-    // GPU PLANES AND GPU PLANE RESULT
-    cv::cuda::GpuMat gpuResult(result);
-    std::vector<cv::cuda::GpuMat> gpuPlanes(nPlanes);
+    auto** d_planesData = new uchar*[nPlanes];
+    uchar* d_resultData;
 
-    // INITIALIZATION FROM CPU TO GPU
-    for (std::size_t i = 0; i < nPlanes; i++)
-        gpuPlanes[i] = cv::cuda::GpuMat(planes[i]);
-
-    // ALLOCATE GPU MEMORY TO STORE POINTERS @TODO CHECK ERROR ON d_planesData[i]
-    uchar** d_planesData;
-    cudaMalloc((void**)&d_planesData, nPlanes * sizeof(uchar*));
-    for (std::size_t i = 0; i < nPlanes; i++){
-        cv::cuda::GpuMat gpuPlane(planes[i]);
-        d_planesData[i] = gpuPlane.ptr<uchar>();
+    // Initialize pointers on GPU
+    cudaMalloc((void**)&d_resultData, WIDTH * HEIGHT * cn * sizeof(uchar));
+    for (std::size_t i = 0; i < nPlanes; i++) {
+        cudaMalloc((void**)&d_planesData[i], WIDTH * HEIGHT * cn * sizeof(uchar));
+        cudaMemcpy(d_planesData[i], planes[i].data, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyHostToDevice);
     }
-    auto* d_resultData = gpuResult.ptr<uchar>();
 
     // GRID AND BLOCK DIMENSIONS
     dim3 block(16, 16);
     dim3 grid((result.cols + block.x - 1) / block.x, (result.rows + block.y - 1) / block.y);
 
     // CUDA KERNEL
-    combinePlanesKernel<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, nPlanes, cn);
+    combinePlanesKernel<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, (int)nPlanes, cn);
+    cudaDeviceSynchronize();
 
-    cudaFree(d_planesData);
+    cudaMemcpy(result.data, d_resultData, WIDTH * HEIGHT * cn * sizeof(uchar), cudaMemcpyDeviceToHost);
 
-    gpuResult.download(result);
+    for (std::size_t i = 0; i < nPlanes; i++)
+        cudaFree(d_planesData[i]);
+    delete[] d_planesData;
+    cudaFree(d_resultData);
 
     return result;
 }
@@ -170,12 +170,14 @@ __global__ void combinePlanesKernel(uchar* resultData, uchar** planesData, int w
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
 
     if (x < width && y < height){
-        for (int z = 0; z < nPlanes; z++){
-            uchar* srcData = planesData[z];
-            for (int c = 0; c < cn; c++){
-                auto idx = (y * width + x) * cn + c;
-                resultData[idx] = resultData[idx] * (1 - ALPHA) + srcData[idx] * ALPHA;
+        for (int c = 0; c < cn; c++){
+            auto idx = (y * width + x) * cn + c;
+            float combinedValue = 0.0f;
+            for (int z = 0; z < nPlanes; z++){
+                uchar* srcData = planesData[z];
+                combinedValue += static_cast<float>(srcData[idx]);
             }
+            resultData[idx] = static_cast<uchar>(combinedValue / nPlanes);
         }
     }
 }

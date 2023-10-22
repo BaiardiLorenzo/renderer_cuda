@@ -24,6 +24,7 @@ void exportResults(int nThreads, double speedUp, std::size_t test, double tSeq, 
     outfile.close();
 }
 
+
 int main() {
 #ifdef _OPENMP
     printf("**Number of cores/threads: %d**\n", omp_get_num_procs());
@@ -45,15 +46,16 @@ int main() {
             auto circles = generateCircles(n);
 
             // TEST SEQUENTIAL AND PARALLEL
-            double tSeq = rendererSequential(circles, test, N_CIRCLES);
-            double tPar = rendererParallel(circles, test, N_CIRCLES);
+            // double tSeq = rendererSequential(circles, test, N_CIRCLES);
+            // double tPar = rendererParallel(circles, test, N_CIRCLES);
             double tCuda = rendererCuda(circles, test, N_CIRCLES);
+            printf("CUDA time %f sec.\n", tCuda);
 
-            double speedUp = tSeq / tPar;
-            printf("Speedup: %f \n\n", speedUp);
+            // double speedUp = tSeq / tPar;
+            // printf("Speedup: %f \n\n", speedUp);
 
             // WRITE RESULTS TO TXT FILE
-            exportResults(i,speedUp,test,tSeq,tPar);
+            // exportResults(i,speedUp,test,tSeq,tPar);
 
             // DELETE ARRAY DYNAMIC ALLOCATED
             delete[] circles;

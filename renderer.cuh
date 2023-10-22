@@ -15,10 +15,10 @@
 #include <opencv2/highgui.hpp>
 
 
-#define WIDTH 1024
-#define HEIGHT 1024
+#define WIDTH 1920
+#define HEIGHT 1080
 #define TRANSPARENT cv::Scalar(255, 255, 255, 0)
-#define ALPHA 0.4
+#define ALPHA 0.5f
 
 #define MAX_RADIUS 200
 #define MIN_RADIUS 100
