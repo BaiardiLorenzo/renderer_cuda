@@ -1,26 +1,28 @@
-#include "renderer.cuh"
+#include "src/renderer.cuh"
+#include "src/test.h"
+#include <map>
 
-#define TEST_PATH "../test.csv"
-#define HEADER_TEST "THREADS;SPEEDUP;TEST;SEQ;PAR;CUDA\n"
-
-#define MAX_TESTS 1000
-#define SPACE 200
-#define MIN_TEST 100
-#define N_CIRCLES 100
-
-void headerResults(){
+void headerResults(const std::string& filename, int nThreads){
     std::ofstream outfile;
-    outfile.open(TEST_PATH);
+    outfile.open(filename);
     if(outfile.is_open())
-        outfile << HEADER_TEST;
+        outfile << "test;tSeq;";
+    for(int i=2; i<=nThreads; i+=2)
+        outfile << "tPar" << i << ";speedUp" << i << ";";
+    outfile << "tCuda;speedUpCuda\n";
     outfile.close();
 }
 
-void exportResults(int nThreads, double speedUp, std::size_t test, double tSeq, double tPar, double tCuda){
+void exportResults(const std::string& filename, std::size_t test, double tSeq, const std::map<std::size_t, double>& tPars,
+                   std::map<std::size_t,double> speedUps, double tCuda, double speedUpCuda){
     std::ofstream outfile;
-    outfile.open(TEST_PATH, std::ios::out | std::ios::app);
-    if (outfile.is_open())
-        outfile<<nThreads<<";"<<speedUp<<";"<<test<<";"<<tSeq<<";"<<tPar<<";"<<tCuda<<"\n";
+    outfile.open(filename, std::ios::out | std::ios::app);
+    if(outfile.is_open()){
+        outfile << test << ";" << tSeq << ";";
+        for(auto tPar: tPars)
+            outfile << tPar.second << ";" << speedUps[tPar.first] << ";";
+        outfile << tCuda << ";" << speedUpCuda << "\n";
+    }
     outfile.close();
 }
 
@@ -30,39 +32,53 @@ int main() {
     printf("**Number of cores/threads: %d**\n", omp_get_num_procs());
     omp_set_dynamic(0);
 #endif
-    headerResults();
+    headerResults(TEST_PATH, omp_get_num_procs());
     std::vector<std::size_t> testPlanes;
     for (std::size_t i = MIN_TEST; i <= MAX_TESTS; i += SPACE)
         testPlanes.push_back(i);
 
-    for (int i=2; i<=omp_get_num_procs(); i+=2) {
-        //SET NUMBER OF THREADS
-        printf("Number of cores/threads used: %d\n", i);
-        omp_set_num_threads(i); // SET NUMBER OF THREADS
-        for (auto test: testPlanes) {
-            printf("TEST: %llu\n", test);
-            // GENERATION OF CIRCLES
-            std::size_t n = test * N_CIRCLES;
-            auto circles = generateCircles(n);
+    for (auto test: testPlanes) {
+        // GENERATION OF CIRCLES
+        std::size_t n = test * N_CIRCLES;
+        auto circles = generateCircles(n, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
 
-            // TEST SEQUENTIAL AND PARALLEL
-            double tSeq = rendererSequential(circles, test, N_CIRCLES);
-            double tPar = rendererParallel(circles, test, N_CIRCLES);
-            double tCuda = rendererCuda(circles, test, N_CIRCLES);
+        printf("\nTEST: %llu\n", test);
 
-            // PRINT RESULTS
+        // TEST SEQUENTIAL
+        double tSeq = sequentialRenderer(circles, test, N_CIRCLES);
+        printf("Sequential time: %f\n", tSeq);
+
+        // TEST PARALLEL
+        std::map<std::size_t, double> tPars;
+        std::map<std::size_t, double> speedUps;
+        for (int i=2; i<=omp_get_num_procs(); i+=2) {
+            //SET NUMBER OF THREADS
+            omp_set_num_threads(i);
+
+            // TEST PARALLEL
+            double tPar = parallelRenderer(circles, test, N_CIRCLES);
+            printf("Parallel time with %d threads: %f\n", i, tPar);
+
             double speedUp = tSeq / tPar;
             printf("Speedup: %f \n", speedUp);
-            double speedUpCuda = tSeq / tCuda;
-            printf("Speedup CUDA: %f \n\n", speedUpCuda);
 
-            //WRITE RESULTS TO TXT FILE
-            exportResults(i,speedUp,test,tSeq,tPar, tCuda);
-
-            // DELETE ARRAY DYNAMIC ALLOCATED
-            delete[] circles;
+            // SAVE RESULTS
+            tPars.insert(std::pair<std::size_t, double>(i, tPar));
+            speedUps.insert(std::pair<std::size_t, double>(i, speedUp));
         }
-    }
 
+        // TEST CUDA
+        double tCuda = cudaRenderer(circles, test, N_CIRCLES);
+        printf("CUDA time: %f\n", tCuda);
+
+        double speedUpCuda = tSeq / tCuda;
+        printf("Speedup CUDA: %f \n\n", speedUpCuda);
+
+        //WRITE RESULTS TO TXT FILE
+        exportResults(TEST_PATH,test,tSeq,tPars,speedUps,tCuda,speedUpCuda);
+
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+    }
     return 0;
 }
