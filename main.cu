@@ -41,11 +41,12 @@ int main() {
         // GENERATION OF CIRCLES
         std::size_t n = test * N_CIRCLES;
         auto circles = generateCircles(n, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        auto planes = generatePlanes(test, circles, N_CIRCLES);
 
         printf("\nTEST: %llu\n", test);
 
         // TEST SEQUENTIAL
-        double tSeq = sequentialRenderer(circles, test, N_CIRCLES);
+        double tSeq = sequentialRenderer(planes, test);
         printf("Sequential time: %f\n", tSeq);
 
         // TEST PARALLEL
@@ -56,7 +57,7 @@ int main() {
             omp_set_num_threads(i);
 
             // TEST PARALLEL
-            double tPar = parallelRenderer(circles, test, N_CIRCLES);
+            double tPar = parallelRenderer(planes, test);
             printf("Parallel time with %d threads: %f\n", i, tPar);
 
             double speedUp = tSeq / tPar;
@@ -68,7 +69,7 @@ int main() {
         }
 
         // TEST CUDA
-        double tCuda = cudaRenderer(circles, test, N_CIRCLES);
+        double tCuda = cudaRenderer(planes, test);
         printf("CUDA time: %f\n", tCuda);
 
         double speedUpCuda = tSeq / tCuda;
@@ -79,6 +80,7 @@ int main() {
 
         // DELETE ARRAY DYNAMIC ALLOCATED
         delete[] circles;
+        delete[] planes;
     }
     return 0;
 }

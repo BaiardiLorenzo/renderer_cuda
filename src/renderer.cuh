@@ -24,17 +24,13 @@ struct Circle {
 
 Circle* generateCircles(std::size_t n, int width, int height, int minRadius, int maxRadius);
 
-double sequentialRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
+cv::Mat* generatePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles);
 
-cv::Mat sequentialCombinePlanes(cv::Mat planes[], std::size_t nPlanes);
+double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes);
 
-double parallelRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
+double parallelRenderer(cv::Mat planes[], std::size_t nPlanes);
 
-cv::Mat parallelCombinePlanes(cv::Mat planes[], std::size_t nPlanes);
-
-double cudaRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles);
-
-cv::Mat cudaCombinePlanes(cv::Mat planes[], std::size_t nPlanes);
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes);
 
 __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 

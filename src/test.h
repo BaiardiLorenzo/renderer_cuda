@@ -16,12 +16,12 @@
 
 // RADIUS CIRCLES
 #define MAX_RADIUS 200
-#define MIN_RADIUS 100
+#define MIN_RADIUS 50
 
 // FOR TESTING
-#define MAX_TESTS 1000
-#define SPACE 100
-#define MIN_TEST 100
+#define MAX_TESTS 10000
+#define SPACE 1000
+#define MIN_TEST 1000
 #define N_CIRCLES 50
 
 #endif //RENDERER_CUDA_TEST_H

@@ -20,12 +20,10 @@ Circle* generateCircles(std::size_t n, int width, int height, int minRadius, int
     return circles;
 }
 
-double sequentialRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles) {
-    auto* planes = new cv::Mat[nPlanes];
+cv::Mat* generatePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles) {
+    auto *planes = new cv::Mat[nPlanes];
 
-    // START
-    double start = omp_get_wtime();
-
+#pragma omp parallel for default(none) shared(planes, circles) firstprivate(nPlanes, nCircles)
     for (int i = 0; i < nPlanes; i++) {
         planes[i] = TRANSPARENT_MAT;
         for (int j = 0; j < nCircles; j++) {
@@ -34,20 +32,16 @@ double sequentialRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCi
         }
     }
 
-    cv::Mat result = sequentialCombinePlanes(planes, nPlanes);
-
-    double time = omp_get_wtime() - start;
-    // END
-
-    delete[] planes;
-
-    cv::imwrite(SEQ_IMG_PATH + std::to_string(nPlanes) + ".png", result);
-    return time;
+    return planes;
 }
 
-cv::Mat sequentialCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
+double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result = TRANSPARENT_MAT;
     int cn = result.channels();
+
+    // START
+    double start = omp_get_wtime();
+
     for (int i = 0; i < result.rows; i++) {
         for (int j = 0; j < result.cols; j++) {
             for (int z = 0; z < nPlanes; z++) {
@@ -59,38 +53,21 @@ cv::Mat sequentialCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
             }
         }
     }
-    return result;
-}
-
-double parallelRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles) {
-    auto* planes = new cv::Mat[nPlanes];
-
-    // START
-    double start = omp_get_wtime();
-
-#pragma omp parallel for default(none) shared(planes, circles) firstprivate(nPlanes, nCircles)
-    for (int i = 0; i < nPlanes; i++) {
-        planes[i] = TRANSPARENT_MAT;
-        for (int j = 0; j < nCircles; j++) {
-            Circle circle = circles[i * nCircles + j];
-            cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
-        }
-    }
-
-    cv::Mat result = parallelCombinePlanes(planes, nPlanes);
 
     double time = omp_get_wtime() - start;
     // END
 
-    delete[] planes;
-
-    cv::imwrite(PAR_IMG_PATH + std::to_string(nPlanes) + ".png", result);
+    cv::imwrite(SEQ_IMG_PATH + std::to_string(nPlanes) + ".png", result);
     return time;
 }
 
-cv::Mat parallelCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
+double parallelRenderer(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result = TRANSPARENT_MAT;
     int cn = result.channels();
+
+    // START
+    double start = omp_get_wtime();
+
 #pragma omp parallel for default(none) shared(result, planes) firstprivate(nPlanes, cn) collapse(2)
     for (int i = 0; i < result.rows; i++) {
         for (int j = 0; j < result.cols; j++) {
@@ -103,36 +80,15 @@ cv::Mat parallelCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
             }
         }
     }
-    return result;
-}
-
-double cudaRenderer(Circle circles[], std::size_t nPlanes, std::size_t nCircles) {
-    auto* planes = new cv::Mat[nPlanes];
-
-    // START
-    double start = omp_get_wtime();
-
-#pragma omp parallel for default(none) shared(planes, circles) firstprivate(nPlanes, nCircles)
-    for (int i = 0; i < nPlanes; i++) {
-        planes[i] = TRANSPARENT_MAT;
-        for (int j = 0; j < nCircles; j++) {
-            Circle circle = circles[i * nCircles + j];
-            cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
-        }
-    }
-
-    cv::Mat result = cudaCombinePlanes(planes, nPlanes);
 
     double time = omp_get_wtime() - start;
     // END
 
-    delete[] planes;
-
-    cv::imwrite(CUDA_IMG_PATH + std::to_string(nPlanes) + ".png", result);
+    cv::imwrite(PAR_IMG_PATH + std::to_string(nPlanes) + ".png", result);
     return time;
 }
 
-cv::Mat cudaCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result = TRANSPARENT_MAT;
     int width = result.cols;
     int height = result.rows;
@@ -152,9 +108,15 @@ cv::Mat cudaCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
     dim3 block(16, 16);
     dim3 grid((result.cols + block.x - 1) / block.x, (result.rows + block.y - 1) / block.y);
 
+    // START
+    double start = omp_get_wtime();
+
     // CUDA KERNEL
     cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
+
+    double time = omp_get_wtime() - start;
+    // END
 
     // COPY RESULT FROM GPU TO CPU
     cudaMemcpy(result.data, d_resultData, width * height * sizeof(uchar4), cudaMemcpyDeviceToHost);
@@ -163,7 +125,8 @@ cv::Mat cudaCombinePlanes(cv::Mat planes[], std::size_t nPlanes) {
     cudaFree(d_planesData);
     cudaFree(d_resultData);
 
-    return result;
+    cv::imwrite(CUDA_IMG_PATH + std::to_string(nPlanes) + ".png", result);
+    return time;
 }
 
 __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes) {
