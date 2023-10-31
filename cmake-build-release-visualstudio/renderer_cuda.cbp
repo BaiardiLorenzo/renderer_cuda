@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="renderer_cuda"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\src\;CMake Files\..\..\..\..\..\..\src\opencv\;CMake Files\..\..\..\..\..\..\src\opencv\build\;CMake Files\..\..\..\..\..\..\src\opencv\build\install\;CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\;CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\vc17\;CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\vc17\lib\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="renderer_cuda">
+				<Option output="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio/renderer_cuda.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/src/opencv/build/install/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 renderer_cuda"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="renderer_cuda/fast">
+				<Option output="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio/renderer_cuda.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/src/opencv/build/install/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 renderer_cuda/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/cmake-build-release-visualstudio"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\cmake-build-release-visualstudio\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/main.cu">
+			<Option target="renderer_cuda"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/renderer.cu">
+			<Option target="renderer_cuda"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/renderer.cuh">
+			<Option target="renderer_cuda"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/test.h">
+			<Option target="renderer_cuda"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/../../../../../../src/opencv/build/install/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\src\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/../../../../../../src/opencv/build/install/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\src\opencv\build\install\"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/../../../../../../src/opencv/build/install/x64/vc17/lib/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\vc17\lib\"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/../../../../../../src/opencv/build/install/x64/vc17/lib/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\vc17\lib\"/>
+		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/../../../../../../src/opencv/build/install/x64/vc17/lib/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\..\src\opencv\build\install\x64\vc17\lib\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
