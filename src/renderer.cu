@@ -96,6 +96,9 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     uchar4* d_resultData;
     uchar4* d_planesData;
 
+    // START
+    double start = omp_get_wtime();
+
     // INITIALIZATION OF GPU MEMORY
     cudaMalloc((void**)&d_resultData, width * height * sizeof(uchar4));
     cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
@@ -107,9 +110,6 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     // GRID AND BLOCK DIMENSIONS
     dim3 block(16, 16);
     dim3 grid((result.cols + block.x - 1) / block.x, (result.rows + block.y - 1) / block.y);
-
-    // START
-    double start = omp_get_wtime();
 
     // CUDA KERNEL
     cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
