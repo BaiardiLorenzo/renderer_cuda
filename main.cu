@@ -1,6 +1,7 @@
 #include "src/renderer.cuh"
 #include "src/test.h"
 #include <map>
+#include <iomanip>
 
 void headerResults(const std::string& filename, int nThreads){
     std::ofstream outfile;
@@ -18,6 +19,7 @@ void exportResults(const std::string& filename, std::size_t test, double tSeq, c
     std::ofstream outfile;
     outfile.open(filename, std::ios::out | std::ios::app);
     if(outfile.is_open()){
+        outfile << std::fixed << std::setprecision(3);
         outfile << test << ";" << tSeq << ";";
         for(auto tPar: tPars)
             outfile << tPar.second << ";" << speedUps[tPar.first] << ";";
@@ -75,7 +77,7 @@ int main() {
         printf("Speedup Cuda: %f \n\n", speedUpCuda);
 
         //WRITE RESULTS TO TXT FILE
-        exportResults(TEST_PATH,test,tSeq,tPars,speedUps,tCuda,speedUpCuda);
+        exportResults(TEST_PATH, test, tSeq, tPars, speedUps, tCuda, speedUpCuda);
 
         // DELETE ARRAY DYNAMIC ALLOCATED
         delete[] circles;

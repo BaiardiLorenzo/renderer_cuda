@@ -96,20 +96,20 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     uchar4* d_resultData;
     uchar4* d_planesData;
 
-    // START
-    double start = omp_get_wtime();
-
     // INITIALIZATION OF GPU MEMORY
     cudaMalloc((void**)&d_resultData, width * height * sizeof(uchar4));
-    cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
-
     cudaMemcpy(d_resultData, result.data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
+
+    cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
     for (std::size_t i = 0; i < nPlanes; i++)
         cudaMemcpy(d_planesData + i * width * height, planes[i].data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
 
     // GRID AND BLOCK DIMENSIONS
     dim3 block(16, 16);
     dim3 grid((result.cols + block.x - 1) / block.x, (result.rows + block.y - 1) / block.y);
+
+    // START
+    double start = omp_get_wtime();
 
     // CUDA KERNEL
     cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
@@ -135,13 +135,22 @@ __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planes
 
     if (x < width && y < height) {
         auto idx = y * width + x;
+        auto oneMinusAlpha = 1.0f - ALPHA;
+        auto resultX = resultData[idx].x;
+        auto resultY = resultData[idx].y;
+        auto resultZ = resultData[idx].z;
+        auto resultW = resultData[idx].w;
+
         for (int z = 0; z < nPlanes; z++) {
             auto idxP = z * width * height + idx;
-            resultData[idx].x = resultData[idx].x * (1.0f - ALPHA) + planesData[idxP].x * ALPHA;
-            resultData[idx].y = resultData[idx].y * (1.0f - ALPHA) + planesData[idxP].y * ALPHA;
-            resultData[idx].z = resultData[idx].z * (1.0f - ALPHA) + planesData[idxP].z * ALPHA;
-            resultData[idx].w = resultData[idx].w * (1.0f - ALPHA) + planesData[idxP].w * ALPHA;
+            const auto &plane = planesData[idxP];
+
+            resultX = resultX * oneMinusAlpha + plane.x * ALPHA;
+            resultY = resultY * oneMinusAlpha + plane.y * ALPHA;
+            resultZ = resultZ * oneMinusAlpha + plane.z * ALPHA;
+            resultW = resultW * oneMinusAlpha + plane.w * ALPHA;
         }
+
+        resultData[idx] = {resultX, resultY, resultZ, resultW};
     }
 }
-
