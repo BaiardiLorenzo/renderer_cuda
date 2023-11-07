@@ -100,7 +100,11 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     cudaMalloc((void**)&d_resultData, width * height * sizeof(uchar4));
     cudaMemcpy(d_resultData, result.data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
 
-    cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
+    auto planesMalloc = cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
+    if (planesMalloc != cudaSuccess) {
+        std::cout << "Error allocating memory for planes: " << cudaGetErrorString(planesMalloc) << std::endl;
+        exit(1);
+    }
     for (std::size_t i = 0; i < nPlanes; i++)
         cudaMemcpy(d_planesData + i * width * height, planes[i].data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
 
