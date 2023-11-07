@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  6 NOV 2023 22:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  7 NOV 2023 09:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,10 +462,25 @@ File: ../results//plots/results.png Graphic file (type png)
 <use ../results//plots/results.png>
 Package pdftex.def Info: ../results//plots/results.png  used on input line 92.
 (pdftex.def)             Requested size: 360.0pt x 360.00375pt.
- [6
+
+Overfull \hbox (0.62573pt too wide) in paragraph at lines 97--113
+[][] 
+ []
+
+
+Overfull \hbox (0.62573pt too wide) in paragraph at lines 117--133
+[][] 
+ []
+
+[6
 
  <../results//img/seq/10000.png> <../results//img/par/10000.png> <../results//i
-mg/cuda/10000.png>] [7 <../results//plots/results.png>] [8] [9] [10
+mg/cuda/10000.png>]
+Overfull \hbox (0.62573pt too wide) in paragraph at lines 139--155
+[][] 
+ []
+
+[7 <../results//plots/results.png>] [8] [9
 
 ]
 (C:/Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\auxil\re
@@ -474,13 +489,13 @@ Package rerunfilecheck Info: File `relation.out' has not changed.
 (rerunfilecheck)             Checksum: 31CC2BA3B008F883CC98524316EC7FE3;812.
  ) 
 Here is how much of TeX's memory you used:
- 11702 strings out of 476331
- 202003 string characters out of 5787764
- 1874660 words of memory out of 12000000
+ 11703 strings out of 476331
+ 201990 string characters out of 5787764
+ 1878660 words of memory out of 5000000
  31934 multiletter control sequences out of 15000+600000
  518356 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,77p,306b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,77p,306b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -488,9 +503,9 @@ ublic/amsfonts/cm/cmr10.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/cm/cmr12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
 Output written on C:/Users\loreb\Documents\IntellijProjects\CLionProjects\rende
-rer_cuda\documentation\relation.pdf (10 pages, 417016 bytes).
+rer_cuda\out\relation.pdf (9 pages, 416630 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
+ 134 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
  85 words of extra memory for PDF output out of 10000 (max. 10000000)
 

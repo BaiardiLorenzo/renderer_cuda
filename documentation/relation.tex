@@ -93,7 +93,8 @@
     %\csvautotabular{../results/csv/test.csv}
 
     \begin{table}
-        \begin{tabular}{|c|c|c|c|}
+        \begin{minipage}{0.49\textwidth}
+            \begin{tabular}{|c|c|c|c|}
             \hline
             test & seq & par & speedUp \\
             \hline
@@ -108,32 +109,34 @@
             9000 & 64.901 & 39.696 & 1.635 \\
             10000 & 73.335 & 46.719 & 1.570 \\
             \hline
-        \end{tabular}
-        \caption{2 thread}
+            \end{tabular}
+            \caption{2 thread}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.49\textwidth}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                test & seq & par & speedUp \\
+                \hline
+                1000 & 3.251 & 0.834 & 3.900 \\
+                2000 & 11.766 & 3.063 & 3.841 \\
+                3000 & 18.281 & 4.856 & 3.764 \\
+                4000 & 24.751 & 7.092 & 3.490 \\
+                5000 & 31.467 & 10.029 & 3.138 \\
+                6000 & 40.148 & 13.859 & 2.897 \\
+                7000 & 47.208 & 18.426 & 2.562 \\
+                8000 & 54.180 & 22.748 & 2.382 \\
+                9000 & 64.901 & 29.120 & 2.229 \\
+                10000 & 73.335 & 34.563 & 2.122 \\
+                \hline
+            \end{tabular}
+            \caption{4 thread}
+        \end{minipage}
     \end{table}
 
     \begin{table}
-        \begin{tabular}{|c|c|c|c|}
-            \hline
-            test & seq & par & speedUp \\
-            \hline
-            1000 & 3.251 & 0.834 & 3.900 \\
-            2000 & 11.766 & 3.063 & 3.841 \\
-            3000 & 18.281 & 4.856 & 3.764 \\
-            4000 & 24.751 & 7.092 & 3.490 \\
-            5000 & 31.467 & 10.029 & 3.138 \\
-            6000 & 40.148 & 13.859 & 2.897 \\
-            7000 & 47.208 & 18.426 & 2.562 \\
-            8000 & 54.180 & 22.748 & 2.382 \\
-            9000 & 64.901 & 29.120 & 2.229 \\
-            10000 & 73.335 & 34.563 & 2.122 \\
-            \hline
-        \end{tabular}
-        \caption{4 thread}
-    \end{table}
-
-    \begin{table}
-        \begin{tabular}{|c|c|c|c|}
+        \begin{minipage}{0.49\textwidth}
+            \begin{tabular}{|c|c|c|c|}
             \hline
             test & seq & par & speedUp\\
             \hline
@@ -148,28 +151,29 @@
             9000 & 64.901 & 25.955 & 2.501 \\
             10000 & 73.335 & 30.540 & 2.401 \\
             \hline
-        \end{tabular}
-        \caption{6 thread}
-    \end{table}
-
-    \begin{table}
-        \begin{tabular}{|c|c|c|c|}
-            \hline
-            test & seq & cuda & speedUp\\
-            \hline
-            1000 & 3.251 & 0.144 & 22.558 \\
-            2000 & 11.766 & 0.260 & 45.332 \\
-            3000 & 18.281 & 0.365 & 50.098 \\
-            4000 & 24.751 & 0.502 & 49.288 \\
-            5000 & 31.467 & 0.707 & 44.521 \\
-            6000 & 40.148 & 1.002 & 40.084 \\
-            7000 & 47.208 & 1.385 & 34.083 \\
-            8000 & 54.180 & 1.710 & 31.675 \\
-            9000 & 64.901 & 2.167 & 29.948 \\
-            10000 & 73.335 & 2.410 & 30.433 \\
-            \hline
-        \end{tabular}
-        \caption{CUDA}
+            \end{tabular}
+            \caption{6 thread}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.49\textwidth}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                test & seq & cuda & speedUp\\
+                \hline
+                1000 & 3.251 & 0.144 & 22.558 \\
+                2000 & 11.766 & 0.260 & 45.332 \\
+                3000 & 18.281 & 0.365 & 50.098 \\
+                4000 & 24.751 & 0.502 & 49.288 \\
+                5000 & 31.467 & 0.707 & 44.521 \\
+                6000 & 40.148 & 1.002 & 40.084 \\
+                7000 & 47.208 & 1.385 & 34.083 \\
+                8000 & 54.180 & 1.710 & 31.675 \\
+                9000 & 64.901 & 2.167 & 29.948 \\
+                10000 & 73.335 & 2.410 & 30.433 \\
+                \hline
+            \end{tabular}
+            \caption{CUDA}
+        \end{minipage}
     \end{table}
 
     \clearpage
