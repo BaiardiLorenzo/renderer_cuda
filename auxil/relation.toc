@@ -1,9 +1,9 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
 \contentsline {section}{\numberline {1}Introduzione}{3}{section.1}%
-\contentsline {section}{\numberline {2}Analisi del problema}{4}{section.2}%
-\contentsline {section}{\numberline {3}Parallelizzazione}{5}{section.3}%
-\contentsline {subsection}{\numberline {3.1}OPENMP}{5}{subsection.3.1}%
+\contentsline {section}{\numberline {2}Analisi del problema}{3}{section.2}%
+\contentsline {section}{\numberline {3}Parallelizzazione}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}OPENMP}{3}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}CUDA}{5}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Tests}{6}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Risultati}{7}{subsection.4.1}%

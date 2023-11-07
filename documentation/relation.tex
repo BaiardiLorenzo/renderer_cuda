@@ -21,13 +21,12 @@
     \maketitle
     \clearpage
 
-    \tableofcontents
-    \clearpage
+    %\tableofcontents
+    %\clearpage
 
     \section{Introduzione}\label{sec:introduzione}
     In questo elaborato verificheremo l'efficacia dell'utilizzo di metodi di parallelizzazione in problemi comuni,
     studiandone i risultati, la velocità e i tempi di esecuzione.
-    \clearpage
 
     \section{Analisi del problema}\label{sec:analisi-del-problema}
     Il problema che abbiamo deciso di valutare è quello del compositing tra piani tramite l'utilizzo della libreria
@@ -38,36 +37,8 @@
     Una volta che vengono sommati tutti i piani, tramite operazione di compositing, verrà restituita una matrice
     risultante con l'immagine finale.
     I parametri utilizzati all'interno del progetto variano in base ai test effettuati.
-    \clearpage
 
-    \section{Parallelizzazione}\label{sec:parallelizazzione}
-    Qui riporteremo le operazioni di parallelizzazione che abbiamo eseguito all'interno del progetto.
-
-    \subsection{OPENMP}\label{subsec:openmp}
-    Per la prima parallelizzazione abbiamo utilizzato la libreria OPENMP\@.
-    L'idea di fondo è quella che ogni thread gestisca la sommatoria di un singolo pixel per ogni matrice, in
-    modo da preservare l'ordinamento dei piani ma aumentandone la velocità di render.
-    Di conseguenza ogni thread calcolerà il pixel risultante e successivamente, al termine di esso, passerà
-    al successivo pixel.
-    All'interno dell'esperimento varieremo il numero di thread che il calcolatore potrà utilizzare per la
-    parallelizzazione per verificarne l'efficienza.
-
-    \subsection{CUDA}\label{subsec:cuda}
-    Abbiamo poi analizzato il problema di parallelizzazione tramite l'utilizzo di schede grafiche NVDIA
-    con il linguaggio di programmazione CUDA\@.
-    In questo caso la parte di parallelizzazione si svilupperà principalmente nel calcolo di grid e block da utilizzare per
-    la parallelizzazione.
-    Anche in questo caso, ogni thread gestirà un singolo pixel per ogni matrice, in modo da preservare
-    l'ordinamento dei piani ma sfruttando la potenza di calcolo della scheda grafica.
-    \clearpage
-
-    \section{Tests}\label{sec:tests}
-    I test sono stati effettuati N volte variando il numero e le dimensioni dei piani, il numero di cerchi disegnati
-    per piano e limitando il numero di thread da poter eseguire alla volta.
-    I cerchi che dovranno essere disegnati sono generati precedentemente all'esecuzione del test, verificando
-    così se i risultati delle varie operazioni riportino una soluzione identica.
-
-    \begin{figure}
+    \begin{figure}[h!]
         \begin{minipage}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{img/seq/10000}
@@ -87,6 +58,36 @@
         \end{minipage}
         \caption{Immagini di esempio con 10000 piani}\label{fig:example-images}
     \end{figure}
+
+    \section{Parallelizzazione}\label{sec:parallelizazzione}
+    Per poter parallelizzare il problema abbiamo deciso di utilizzare due approcci differenti, nel primo caso abbiamo
+    utilizzato la libreria OPENMP al variare del numero di thread e nel secondo caso abbiamo utilizzato il linguaggio di
+    programmazione CUDA per il calcolo parallelo su scheda grafica\@.
+    Entrambi i metodi verranno analizzati e confrontati tra loro per verificare quale sia il più efficiente.
+    Il metodo preso in considerazione per la parallelizzazione è:
+    \includegraphics[width=\textwidth]{../documentation/img/code (1)}
+
+    \subsection{OPENMP}\label{subsec:openmp}
+    L'idea di fondo è quella che ogni thread gestisca la sommatoria di un singolo pixel per ogni matrice, in
+    modo da preservare l'ordinamento dei piani ma aumentandone la velocità di render.
+    Di conseguenza ogni thread calcolerà il pixel risultante e successivamente, al termine di esso, passerà
+    al successivo pixel.
+    All'interno dell'esperimento varieremo il numero di thread che il calcolatore potrà utilizzare per la
+    parallelizzazione per verificarne l'efficienza.
+    \includegraphics[width=\textwidth]{../documentation/img/code (2)}
+
+    \subsection{CUDA}\label{subsec:cuda}
+    In questo caso la parte di parallelizzazione si svilupperà principalmente nel calcolo di grid e block da utilizzare.
+    Anche in questo caso, ogni thread gestirà un singolo pixel per ogni matrice, in modo da preservare
+    l'ordinamento dei piani ma sfruttando la potenza di calcolo della scheda grafica.
+    \includegraphics[width=\textwidth]{../documentation/img/code (3)}
+    \includegraphics[width=\textwidth]{../documentation/img/code (4)}
+
+    \section{Tests}\label{sec:tests}
+    I test sono stati effettuati N volte variando il numero e le dimensioni dei piani, il numero di cerchi disegnati
+    per piano e limitando il numero di thread da poter eseguire alla volta.
+    I cerchi che dovranno essere disegnati sono generati precedentemente all'esecuzione del test, verificando
+    così se i risultati delle varie operazioni riportino una soluzione identica.
 
     \subsection{Risultati}\label{subsec:plots}
     \includegraphics[width=\textwidth]{plots/results}
@@ -131,7 +132,7 @@
                 \hline
             \end{tabular}
             \caption{4 thread}
-        \end{minipage}
+        \end{minipage}\label{tab:table1}
     \end{table}
 
     \begin{table}
@@ -173,10 +174,8 @@
                 \hline
             \end{tabular}
             \caption{CUDA}
-        \end{minipage}
+        \end{minipage}\label{tab:table2}
     \end{table}
-
-    \clearpage
 
     \section{Conclusioni}\label{sec:conclusioni}
     In conclusione, possiamo vedere come l'operazione di parallelizzazione CUDA risulti il più efficiente, a
