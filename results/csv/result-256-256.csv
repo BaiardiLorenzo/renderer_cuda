@@ -1,0 +1,2 @@
+test;tSeq;tPar2;speedUp2;tPar4;speedUp4;tPar6;speedUp6;tCuda;speedUpCuda
+1000;0.786;0.385;2.041;0.194;4.044;0.147;5.336;0.044;18.071

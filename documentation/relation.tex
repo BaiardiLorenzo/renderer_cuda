@@ -116,37 +116,67 @@
     Tutti i piani e i vari cerchi vengono generati precedentemente all'esecuzione del test, in modo da poter avere
     un confronto più accurato tra i vari metodi di parallelizzazione.
     Le dimensioni delle immagini utilizzate sono 256x256, 512x512 e 1024x1024.
-    Il numero di piani partono da 1000 e arrivano a 10000, con un incremento di 1000 piani per ogni test.
+    Il numero di piani partono da 1000 e arrivano a 10000, con un incremento di 1000 piani per i test 256x256 e 512x512,
+    mentre per il test 1024x1024 il numero di piani parte da 100 e arriva a 1000, con un incremento di 100 piani.
+    Per la sola versione OpenMP è stata utilizzata la toolchain di MinGW, mentre per la versione CUDA è stata utilizzata
+    la toolchain di MSVC\@.
     La versione di OpenCV utilizzata è la 4.6.0, mentre la versione di CUDA è la 11.8.
 
     \subsection{256x256}\label{subsec:256x256}
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/omp_times}
+            \caption{Tempi di OMP}\label{fig:times-256-omp}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/omp_speedup}
+            \caption{Speedup di OMP}\label{fig:speedup-256-omp}
+        \end{minipage}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/cuda_times}
+            \caption{Tempi di CUDA}\label{fig:times-256-cuda}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/cuda_speedup}
+            \caption{Speedup di CUDA}\label{fig:speedup-256-cuda}
+        \end{minipage}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/results_times}
+            \caption{Confronto dei tempi}\label{fig:tempi-256}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/256/results_speedup}
+            \caption{Confronto fra speedups}\label{fig:speedups-256}
+        \end{minipage}
+    \end{figure}
 
     \subsection{512x512}\label{subsec:512x512}
     \begin{figure}[H]
         \centering
         \begin{minipage}{0.49\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{plots/omp_times}
-            \caption{Tempi di OMP}\label{fig:times-omp}
+            \includegraphics[width=\textwidth]{plots/512/omp_times}
+            \caption{Tempi di OMP}\label{fig:times-512-omp}
         \end{minipage}
         \begin{minipage}{0.49\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{plots/omp_speedup}
-            \caption{Speedup di OMP}\label{fig:speedup-omp}
-        \end{minipage}
-    \end{figure}
-
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{plots/cuda_times}
-            \caption{Tempi di CUDA}\label{fig:times-cuda}
-        \end{minipage}
-        \begin{minipage}{0.49\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{plots/cuda_speedup}
-            \caption{Speedup di CUDA}\label{fig:speedup-cuda}
+            \includegraphics[width=\textwidth]{plots/512/omp_speedup}
+            \caption{Speedup di OMP}\label{fig:speedup-512-omp}
         \end{minipage}
     \end{figure}
 
@@ -154,18 +184,72 @@
         \centering
         \begin{minipage}{0.49\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{plots/results_times}
-            \caption{Confronto dei tempi}\label{fig:tempi}
+            \includegraphics[width=\textwidth]{plots/512/cuda_times}
+            \caption{Tempi di CUDA}\label{fig:times-512-cuda}
         \end{minipage}
         \begin{minipage}{0.49\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{plots/results_speedup}
-            \caption{Confronto fra speedups}\label{fig:speedups}
+            \includegraphics[width=\textwidth]{plots/512/cuda_speedup}
+            \caption{Speedup di CUDA}\label{fig:speedup-512-cuda}
+        \end{minipage}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/512/results_times}
+            \caption{Confronto dei tempi}\label{fig:tempi-512}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/512/results_speedup}
+            \caption{Confronto fra speedups}\label{fig:speedups-512}
         \end{minipage}
     \end{figure}
 
     \subsection{1024x1024}\label{subsec:1024x1024}
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/omp_times}
+            \caption{Tempi di OMP}\label{fig:times-1024-omp}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/omp_speedup}
+            \caption{Speedup di OMP}\label{fig:speedup-1024-omp}
+        \end{minipage}
+    \end{figure}
 
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/cuda_times}
+            \caption{Tempi di CUDA}\label{fig:times-1024-cuda}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/cuda_speedup}
+            \caption{Speedup di CUDA}\label{fig:speedup-1024-cuda}
+        \end{minipage}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/results_times}
+            \caption{Confronto dei tempi}\label{fig:tempi-1024}
+        \end{minipage}
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{plots/1024/results_speedup}
+            \caption{Confronto fra speedups}\label{fig:speedups-1024}
+        \end{minipage}
+    \end{figure}
 
     \section{Conclusioni}\label{sec:conclusioni}
     In conclusione, come è possibile vedere dai vari test effettuati e come ci si potesse aspettare, l'operazione di

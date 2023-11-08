@@ -1,19 +1,21 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
-test_results = 'csv/result-512-512.csv'
 
-plot_omp_times = 'plots/omp_times.png'
-plot_omp_speedup = 'plots/omp_speedup.png'
+results_folder = 'csv/result-'
 
-plot_cuda_times = 'plots/cuda_times.png'
-plot_cuda_speedup = 'plots/cuda_speedup.png'
+plot_folder = 'plots/'
+plot_omp_times = 'omp_times.png'
+plot_omp_speedup = 'omp_speedup.png'
 
-plot_results_times = 'plots/results_times.png'
-plot_results_speedup = 'plots/results_speedup.png'
+plot_cuda_times = 'cuda_times.png'
+plot_cuda_speedup = 'cuda_speedup.png'
+
+plot_results_times = 'results_times.png'
+plot_results_speedup = 'results_speedup.png'
 
 
-def plot_csv(data):
+def plot_csv(data, folder):
     # Leggi il file CSV
     data = pd.read_csv(data, sep=';')
 
@@ -28,7 +30,7 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_omp_times)
+    plt.savefig(folder + plot_omp_times)
     # plt.show()
 
     # Plot Speedup
@@ -41,7 +43,7 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_omp_speedup)
+    plt.savefig(folder + plot_omp_speedup)
     # plt.show()
 
     # Plot CUDA
@@ -54,7 +56,7 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_cuda_times)
+    plt.savefig(folder + plot_cuda_times)
     # plt.show()
 
     # Plot Speedup
@@ -66,7 +68,7 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_cuda_speedup)
+    plt.savefig(folder + plot_cuda_speedup)
     # plt.show()
 
     # Plot Tempi
@@ -81,7 +83,7 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_results_times)
+    plt.savefig(folder + plot_results_times)
 
     # Plot Speedup
     plt.figure()
@@ -94,12 +96,15 @@ def plot_csv(data):
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    plt.savefig(plot_results_speedup)
+    plt.savefig(folder + plot_results_speedup)
     # plt.show()
 
 
 def main():
-    plot_csv(data=test_results)
+    img_sizes = [256, 512, 1024]
+    for size in img_sizes:
+        data = results_folder + str(size) + '-' + str(size) + '.csv'
+        plot_csv(data, plot_folder + str(size) + "/")
 
 
 if __name__ == '__main__':
