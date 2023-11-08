@@ -34,7 +34,7 @@ int main() {
     printf("**Number of cores/threads: %d**\n", omp_get_num_procs());
     omp_set_dynamic(0);
 #endif
-    headerResults(TEST_PATH, omp_get_num_procs());
+    headerResults(RESULT_PATH, omp_get_num_procs());
     std::vector<std::size_t> testPlanes;
     for (std::size_t i = MIN_TEST; i <= MAX_TESTS; i += SPACE)
         testPlanes.push_back(i);
@@ -77,7 +77,7 @@ int main() {
         printf("Speedup Cuda: %f \n\n", speedUpCuda);
 
         //WRITE RESULTS TO TXT FILE
-        exportResults(TEST_PATH, test, tSeq, tPars, speedUps, tCuda, speedUpCuda);
+        exportResults(RESULT_PATH, test, tSeq, tPars, speedUps, tCuda, speedUpCuda);
 
         // DELETE ARRAY DYNAMIC ALLOCATED
         delete[] circles;

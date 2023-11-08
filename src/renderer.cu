@@ -158,3 +158,4 @@ __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planes
         resultData[idx] = {resultX, resultY, resultZ, resultW};
     }
 }
+

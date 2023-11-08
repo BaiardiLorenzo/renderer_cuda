@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  7 NOV 2023 14:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  8 NOV 2023 19:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -150,6 +150,14 @@ Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \Gin@req@height=\dimen151
 \Gin@req@width=\dimen152
 )
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count277
+\float@exts=\toks22
+\float@box=\box53
+\@float@everytoks=\toks23
+\@floatcapt=\box54
+)
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/csvsimple\csvsimple.sty
 
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3k
@@ -160,8 +168,8 @@ Package: expl3 2023-03-30 L3 programming layer (loader)
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count277
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count278
+\l__pdf_internal_box=\box55
 ))
 Package: l3keys2e 2023-02-02 LaTeX2e option processing using LaTeX3 keys
 )
@@ -175,13 +183,13 @@ Package: csvsimple-legacy 2023/10/16 version 2.5.0 LaTeX2e CSV file processing
 y
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -common.tex
-\pgfutil@everybye=\toks22
+\pgfutil@everybye=\toks24
 \pgfutil@tempdima=\dimen153
 \pgfutil@tempdimb=\dimen154
 )
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
 -latex.def
-\pgfutil@abb=\box54
+\pgfutil@abb=\box56
 )
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
 code.tex
@@ -192,12 +200,12 @@ Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
 ty
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 .code.tex
-\pgfkeys@pathtoks=\toks23
-\pgfkeys@temptoks=\toks24
+\pgfkeys@pathtoks=\toks25
+\pgfkeys@temptoks=\toks26
 
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
 libraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks25
+\pgfkeys@tmptoks=\toks27
 )))
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
@@ -207,9 +215,9 @@ Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
 )
 \csv@file=\read3
-\c@csvinputline=\count278
-\c@csvrow=\count279
-\c@csvcol=\count280
+\c@csvinputline=\count279
+\c@csvrow=\count280
+\c@csvcol=\count281
 \csv@out=\write3
 )
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
@@ -267,11 +275,11 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count281
+\c@section@level=\count282
 )
 \@linkdim=\dimen155
-\Hy@linkcounter=\count282
-\Hy@pagecounter=\count283
+\Hy@linkcounter=\count283
+\Hy@pagecounter=\count284
  (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2023-02-07 v7.00v Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -282,7 +290,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count284
+\Hy@SavedSpaceFactor=\count285
  (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -295,7 +303,7 @@ Package hyperref Info: Plain pages OFF on input line 4192.
 Package hyperref Info: Backreferencing OFF on input line 4197.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4425.
-\c@Hy@tempcnt=\count285
+\c@Hy@tempcnt=\count286
 
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
@@ -312,7 +320,7 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count286
+\Fld@menulength=\count287
 \Field@Width=\dimen157
 \Fld@charsize=\dimen158
 Package hyperref Info: Hyper figures OFF on input line 6042.
@@ -327,9 +335,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6072.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count287
-\c@Item=\count288
-\c@Hfootnote=\count289
+\Hy@abspage=\count288
+\c@Item=\count289
+\c@Hfootnote=\count290
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
@@ -340,8 +348,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count290
-\c@bookmark@seq@number=\count291
+\Fld@listcount=\count291
+\c@bookmark@seq@number=\count292
 
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -356,30 +364,119 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip53
 )
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count293
+\lst@gtempboxa=\box57
+\lst@token=\toks28
+\lst@length=\count294
+\lst@currlwidth=\dimen159
+\lst@column=\count295
+\lst@pos=\count296
+\lst@lostspace=\dimen160
+\lst@width=\dimen161
+\lst@newlines=\count297
+\lst@lineno=\count298
+\lst@maxwidth=\dimen162
+
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count299
+\lst@skipnumbers=\count300
+\lst@framebox=\box58
+)
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+)
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen163
+\captionmargin=\dimen164
+\caption@leftmargin=\dimen165
+\caption@rightmargin=\dimen166
+\caption@width=\dimen167
+\caption@indent=\dimen168
+\caption@parindent=\dimen169
+\caption@hangindent=\dimen170
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count301
+\c@continuedfloat=\count302
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count303
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count304
+) (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/mdwtools\mdwtab.sty
+Package: mdwtab 1998/04/28 1.9 Table typesetting with style
+\tab@state=\count305
+\tab@columns=\count306
+\tab@preamble=\toks29
+\tab@shortline=\toks30
+\extrarowheight=\dimen171
+\tabextrasep=\dimen172
+\arrayextrasep=\dimen173
+\smarraycolsep=\dimen174
+\smarrayextrasep=\dimen175
+\tab@width=\dimen176
+\col@sep=\dimen177
+\tab@endheight=\dimen178
+\tab@leftskip=\skip54
+\tab@rightskip=\skip55
+\fn@notes=\box59
+\fn@width=\dimen179
+)
 (C:/Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\auxil\re
 lation.aux)
 \openout1 = `relation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Info: Redefining \it@ocap on input line 19.
-LaTeX Info: Redefining \it@ccap on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Info: Redefining \it@ocap on input line 48.
+LaTeX Info: Redefining \it@ccap on input line 48.
 
 
 File italian.ldf warning: 
@@ -387,23 +484,23 @@ italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting 
-italian.ldf    on input line 19.
+italian.ldf    on input line 48.
 
 
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count292
-\scratchdimen=\dimen159
-\scratchbox=\box55
-\nofMPsegments=\count293
-\nofMParguments=\count294
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count295
-\MPscratchDim=\dimen160
-\MPnumerator=\count296
-\makeMPintoPDFobject=\count297
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count307
+\scratchdimen=\dimen180
+\scratchbox=\box60
+\nofMPsegments=\count308
+\nofMParguments=\count309
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count310
+\MPscratchDim=\dimen181
+\MPnumerator=\count311
+\makeMPintoPDFobject=\count312
+\everyMPtoPDFconversion=\toks32
 )
 (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -415,7 +512,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 19.
+Package hyperref Info: Link coloring OFF on input line 48.
 
 (C:/Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\auxil\re
 lation.out)
@@ -424,98 +521,129 @@ lation.out)
 \@outlinefile=\write4
 \openout4 = `relation.out'.
 
+\c@lstlisting=\count313
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
  [1
 
 {C:/Users/loreb/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<../results//img/seq/10000.png, id=43, 501.875pt x 501.875pt>
+<../results//img/seq/10000.png, id=59, 513.92pt x 513.92pt>
 File: ../results//img/seq/10000.png Graphic file (type png)
 <use ../results//img/seq/10000.png>
-Package pdftex.def Info: ../results//img/seq/10000.png  used on input line 44.
-(pdftex.def)             Requested size: 115.20264pt x 115.19908pt.
-<../results//img/par/10000.png, id=45, 501.875pt x 501.875pt>
+Package pdftex.def Info: ../results//img/seq/10000.png  used on input line 68.
+(pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
+<../results//img/par/10000.png, id=61, 513.92pt x 513.92pt>
 File: ../results//img/par/10000.png Graphic file (type png)
 <use ../results//img/par/10000.png>
-Package pdftex.def Info: ../results//img/par/10000.png  used on input line 50.
-(pdftex.def)             Requested size: 115.20264pt x 115.19908pt.
-<../results//img/cuda/10000.png, id=46, 501.875pt x 501.875pt>
+Package pdftex.def Info: ../results//img/par/10000.png  used on input line 74.
+(pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
+<../results//img/cuda/10000.png, id=62, 513.92pt x 513.92pt>
 File: ../results//img/cuda/10000.png Graphic file (type png)
 <use ../results//img/cuda/10000.png>
-Package pdftex.def Info: ../results//img/cuda/10000.png  used on input line 56.
+Package pdftex.def Info: ../results//img/cuda/10000.png  used on input line 80.
 
-(pdftex.def)             Requested size: 115.20264pt x 115.19908pt.
-<../documentation/img/code (1).png, id=47, 519.44063pt x 414.42328pt>
-File: ../documentation/img/code (1).png Graphic file (type png)
-<use ../documentation/img/code (1).png>
-Package pdftex.def Info: ../documentation/img/code (1).png  used on input line 
-68.
-(pdftex.def)             Requested size: 360.0pt x 287.21707pt.
- [2
+(pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
+ (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 90.
+(../src/renderer.cu [2
 
  <../results//img/seq/10000.png> <../results//img/par/10000.png> <../results//i
-mg/cuda/10000.png>]
-<../documentation/img/code (2).png, id=60, 603.37921pt x 435.87843pt>
-File: ../documentation/img/code (2).png Graphic file (type png)
-<use ../documentation/img/code (2).png>
-Package pdftex.def Info: ../documentation/img/code (2).png  used on input line 
-77.
-(pdftex.def)             Requested size: 360.0pt x 260.0592pt.
- [3 <../documentation/img/code (1).png>]
-<../documentation/img/code (3).png, id=66, 745.28438pt x 254.07422pt>
-File: ../documentation/img/code (3).png Graphic file (type png)
-<use ../documentation/img/code (3).png>
-Package pdftex.def Info: ../documentation/img/code (3).png  used on input line 
-83.
-(pdftex.def)             Requested size: 360.0pt x 122.72572pt.
-<../documentation/img/code (4).png, id=67, 747.91922pt x 402.37828pt>
-File: ../documentation/img/code (4).png Graphic file (type png)
-<use ../documentation/img/code (4).png>
-Package pdftex.def Info: ../documentation/img/code (4).png  used on input line 
-84.
-(pdftex.def)             Requested size: 360.0pt x 193.67967pt.
- [4 <../documentation/img/code (2).png> <../documentation/img/code (3).png>]
-<../results//plots/results.png, id=74, 722.7pt x 722.7pt>
-File: ../results//plots/results.png Graphic file (type png)
-<use ../results//plots/results.png>
-Package pdftex.def Info: ../results//plots/results.png  used on input line 93.
-(pdftex.def)             Requested size: 360.0pt x 360.00375pt.
-
-Overfull \hbox (0.62573pt too wide) in paragraph at lines 98--114
-[][] 
+mg/cuda/10000.png>]) (../src/renderer.cu [3])
+(../src/renderer.cu [4])
+<../results//plots/omp_times.png, id=154, 462.528pt x 346.896pt>
+File: ../results//plots/omp_times.png Graphic file (type png)
+<use ../results//plots/omp_times.png>
+Package pdftex.def Info: ../results//plots/omp_times.png  used on input line 12
+9.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+<../results//plots/omp_speedup.png, id=155, 462.528pt x 346.896pt>
+File: ../results//plots/omp_speedup.png Graphic file (type png)
+<use ../results//plots/omp_speedup.png>
+Package pdftex.def Info: ../results//plots/omp_speedup.png  used on input line 
+134.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+ [5]
+<../results//plots/cuda_times.png, id=168, 462.528pt x 346.896pt>
+File: ../results//plots/cuda_times.png Graphic file (type png)
+<use ../results//plots/cuda_times.png>
+Package pdftex.def Info: ../results//plots/cuda_times.png  used on input line 1
+43.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+<../results//plots/cuda_speedup.png, id=169, 462.528pt x 346.896pt>
+File: ../results//plots/cuda_speedup.png Graphic file (type png)
+<use ../results//plots/cuda_speedup.png>
+Package pdftex.def Info: ../results//plots/cuda_speedup.png  used on input line
+ 148.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+<../results//plots/results_times.png, id=170, 462.528pt x 346.896pt>
+File: ../results//plots/results_times.png Graphic file (type png)
+<use ../results//plots/results_times.png>
+Package pdftex.def Info: ../results//plots/results_times.png  used on input lin
+e 157.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+<../results//plots/results_speedup.png, id=171, 462.528pt x 346.896pt>
+File: ../results//plots/results_speedup.png Graphic file (type png)
+<use ../results//plots/results_speedup.png>
+Package pdftex.def Info: ../results//plots/results_speedup.png  used on input l
+ine 162.
+(pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
+ [6 <../results//plots/omp_times.png> <../results//plots/omp_speedup.png> <../r
+esults//plots/cuda_times.png> <../results//plots/cuda_speedup.png>] [7 <../resu
+lts//plots/results_times.png> <../results//plots/results_speedup.png>]
+Overfull \hbox (24.2679pt too wide) in paragraph at lines 189--203
+ [][] 
  []
 
 
-Overfull \hbox (0.62573pt too wide) in paragraph at lines 118--134
-[][] 
+Overfull \hbox (24.2679pt too wide) in paragraph at lines 208--222
+ [][] 
  []
 
-[5 <../documentation/img/code (4).png>]
-Overfull \hbox (0.62573pt too wide) in paragraph at lines 140--156
-[][] 
+
+Overfull \hbox (24.2679pt too wide) in paragraph at lines 229--243
+ [][] 
  []
 
-[6 <../results//plots/results.png>] [7]
+
+Overfull \hbox (27.30957pt too wide) in paragraph at lines 248--262
+ [][] 
+ []
+
+[8
+
+]
 (C:/Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\auxil\re
 lation.aux)
 Package rerunfilecheck Info: File `relation.out' has not changed.
-(rerunfilecheck)             Checksum: 31CC2BA3B008F883CC98524316EC7FE3;812.
+(rerunfilecheck)             Checksum: 3B8A70815BBACFAAA95808A25F7B0F0F;1342.
  ) 
 Here is how much of TeX's memory you used:
- 11740 strings out of 476331
- 203363 string characters out of 5787764
- 1878660 words of memory out of 5000000
- 31972 multiletter control sequences out of 15000+600000
- 518048 words of font info for 52 fonts, out of 8000000 for 9000
+ 15985 strings out of 476331
+ 269834 string characters out of 5787764
+ 2202660 words of memory out of 12000000
+ 36077 multiletter control sequences out of 15000+600000
+ 519023 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,77p,306b,475s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmbx12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmr10.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr17.pfb>
+ 75i,10n,77p,494b,2182s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\loreb\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
+1095.pk><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/loreb/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/loreb/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
 Output written on C:/Users\loreb\Documents\IntellijProjects\CLionProjects\rende
-rer_cuda\out\relation.pdf (7 pages, 812841 bytes).
+rer_cuda\out\relation.pdf (8 pages, 546358 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 24 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 249 PDF objects out of 1000 (max. 8388607)
+ 105 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

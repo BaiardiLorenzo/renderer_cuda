@@ -21,27 +21,58 @@
 \newlabel{sec:introduzione}{{1}{2}{Introduzione}{section.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Analisi del problema}{2}{section.2}\protected@file@percent }
 \newlabel{sec:analisi-del-problema}{{2}{2}{Analisi del problema}{section.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Sequenziale}}{2}{figure.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces OMP}}{2}{figure.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces CUDA}}{2}{figure.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Immagini di esempio con 10000 piani}}{2}{figure.4}\protected@file@percent }
-\newlabel{fig:example-images}{{4}{2}{Immagini di esempio con 10000 piani}{figure.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Parallelizzazione}{2}{section.3}\protected@file@percent }
-\newlabel{sec:parallelizazzione}{{3}{2}{Parallelizzazione}{section.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Sequenziale}}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces OMP}}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces CUDA}}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Immagini di esempio}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:example-images}{{4}{2}{Immagini di esempio}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Metodi di parallelizzazione}{2}{section.3}\protected@file@percent }
+\newlabel{sec:metodi-di-parallelizazzione}{{3}{2}{Metodi di parallelizzazione}{section.3}{}}
+\newlabel{lst:sequential-code}{{3}{2}{}{lstlisting.-1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{../src/renderer.cu}{2}{lstlisting.-1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}OPENMP}{3}{subsection.3.1}\protected@file@percent }
 \newlabel{subsec:openmp}{{3.1}{3}{OPENMP}{subsection.3.1}{}}
+\newlabel{lst:parallel-code}{{3.1}{3}{}{lstlisting.-2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{../src/renderer.cu}{3}{lstlisting.-2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}CUDA}{4}{subsection.3.2}\protected@file@percent }
 \newlabel{subsec:cuda}{{3.2}{4}{CUDA}{subsection.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Tests}{5}{section.4}\protected@file@percent }
-\newlabel{sec:tests}{{4}{5}{Tests}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Risultati}{6}{subsection.4.1}\protected@file@percent }
-\newlabel{subsec:plots}{{4.1}{6}{Risultati}{subsection.4.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusioni}{6}{section.5}\protected@file@percent }
-\newlabel{sec:conclusioni}{{5}{6}{Conclusioni}{section.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 2 thread}}{7}{table.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 4 thread}}{7}{table.2}\protected@file@percent }
-\newlabel{tab:table1}{{4.1}{7}{Risultati}{table.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 6 thread}}{7}{table.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces CUDA}}{7}{table.4}\protected@file@percent }
-\newlabel{tab:table2}{{4.1}{7}{Risultati}{table.4}{}}
-\gdef \@abspage@last{7}
+\newlabel{lst:cuda-code}{{3.2}{4}{}{lstlisting.-3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{../src/renderer.cu}{4}{lstlisting.-3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Caratteristiche della macchina}{5}{section.4}\protected@file@percent }
+\newlabel{sec:caratteristiche-della-macchina}{{4}{5}{Caratteristiche della macchina}{section.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Tests}{5}{section.5}\protected@file@percent }
+\newlabel{sec:tests}{{5}{5}{Tests}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}256x256}{6}{subsection.5.1}\protected@file@percent }
+\newlabel{subsec:256x256}{{5.1}{6}{256x256}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}512x512}{6}{subsection.5.2}\protected@file@percent }
+\newlabel{subsec:512x512}{{5.2}{6}{512x512}{subsection.5.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Tempi di OMP}}{6}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:times-omp}{{5}{6}{Tempi di OMP}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Speedup di OMP}}{6}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:speedup-omp}{{6}{6}{Speedup di OMP}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Tempi di CUDA}}{6}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:times-cuda}{{7}{6}{Tempi di CUDA}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Speedup di CUDA}}{6}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:speedup-cuda}{{8}{6}{Speedup di CUDA}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Confronto dei tempi}}{7}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:tempi}{{9}{7}{Confronto dei tempi}{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Confronto fra speedups}}{7}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:speedups}{{10}{7}{Confronto fra speedups}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}1024x1024}{7}{subsection.5.3}\protected@file@percent }
+\newlabel{subsec:1024x1024}{{5.3}{7}{1024x1024}{subsection.5.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusioni}{7}{section.6}\protected@file@percent }
+\newlabel{sec:conclusioni}{{6}{7}{Conclusioni}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Risultati}{8}{section.7}\protected@file@percent }
+\newlabel{sec:risultati}{{7}{8}{Risultati}{section.7}{}}
+\newlabel{tab:table-parallel2}{{1a}{8}{Risultati parallelo 2}{table.caption.5}{}}
+\newlabel{sub@tab:table-parallel2}{{a}{8}{Risultati parallelo 2}{table.caption.5}{}}
+\newlabel{tab:table-parallel4}{{1b}{8}{Risultati parallelo 4}{table.caption.5}{}}
+\newlabel{sub@tab:table-parallel4}{{b}{8}{Risultati parallelo 4}{table.caption.5}{}}
+\newlabel{tab:table-parallel6}{{1c}{8}{Risultati parallelo 6}{table.caption.5}{}}
+\newlabel{sub@tab:table-parallel6}{{c}{8}{Risultati parallelo 6}{table.caption.5}{}}
+\newlabel{tab:table-cuda}{{1d}{8}{Risultati CUDA}{table.caption.5}{}}
+\newlabel{sub@tab:table-cuda}{{d}{8}{Risultati CUDA}{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Confronto tra i risultati di parallelismo}}{8}{table.caption.5}\protected@file@percent }
+\newlabel{tab:table-comparison}{{1}{8}{Confronto tra i risultati di parallelismo}{table.caption.5}{}}
+\gdef \@abspage@last{8}
