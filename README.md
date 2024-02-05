@@ -1,6 +1,8 @@
 # Rendering: Parallel Programming for Machine Learning
 Il progetto si focalizza sulla verifica di specifiche funzioni implementate in C++ e CUDA 
 per la parallelizzazione del metodo di compositing.
+
+
 ![Risultato del test con 10000 piani](results/img/cuda/10000.png)
 ![Risultato del test con 8000 piani](results/img/cuda/8000.png)
 
