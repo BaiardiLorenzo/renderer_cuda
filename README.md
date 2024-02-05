@@ -2,9 +2,12 @@
 Il progetto si focalizza sulla verifica di specifiche funzioni implementate in C++ e CUDA 
 per la parallelizzazione del metodo di compositing.
 
-<img src="results/img/seq/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
-<img src="results/img/par/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
-<img src="results/img/cuda/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
+<p float="left">
+  <img src="results/img/seq/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
+  <img src="results/img/par/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
+  <img src="results/img/cuda/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
+</p>
+
 
 ## SRC
 Questa directory contiene le principali classi utilizzate per l'esecuzione dei test:
