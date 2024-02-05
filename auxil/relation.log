@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  8 NOV 2023 22:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  5 FEB 2024 16:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -527,20 +527,20 @@ Package caption Info: End \AtBeginDocument code.
  [1
 
 {C:/Users/loreb/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-<../results//img/seq/10000.png, id=59, 256.96pt x 256.96pt>
+<../results//img/seq/10000.png, id=55, 256.96pt x 256.96pt>
 File: ../results//img/seq/10000.png Graphic file (type png)
 <use ../results//img/seq/10000.png>
-Package pdftex.def Info: ../results//img/seq/10000.png  used on input line 68.
+Package pdftex.def Info: ../results//img/seq/10000.png  used on input line 70.
 (pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
-<../results//img/par/10000.png, id=61, 256.96pt x 256.96pt>
+<../results//img/par/10000.png, id=57, 256.96pt x 256.96pt>
 File: ../results//img/par/10000.png Graphic file (type png)
 <use ../results//img/par/10000.png>
-Package pdftex.def Info: ../results//img/par/10000.png  used on input line 74.
+Package pdftex.def Info: ../results//img/par/10000.png  used on input line 76.
 (pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
-<../results//img/cuda/10000.png, id=62, 256.96pt x 256.96pt>
+<../results//img/cuda/10000.png, id=58, 256.96pt x 256.96pt>
 File: ../results//img/cuda/10000.png Graphic file (type png)
 <use ../results//img/cuda/10000.png>
-Package pdftex.def Info: ../results//img/cuda/10000.png  used on input line 80.
+Package pdftex.def Info: ../results//img/cuda/10000.png  used on input line 82.
 
 (pdftex.def)             Requested size: 115.20264pt x 115.20355pt.
  (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -549,170 +549,148 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\loreb\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 90.
-(../src/renderer.cu [2
+) [2
 
  <../results//img/seq/10000.png> <../results//img/par/10000.png> <../results//i
-mg/cuda/10000.png>]) (../src/renderer.cu [3])
-(../src/renderer.cu [4])
-<../results//plots/256/omp_times.png, id=154, 462.528pt x 346.896pt>
+mg/cuda/10000.png>]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 93.
+ (../src/renderer.cu) (../src/renderer.cu [3])
+(../src/renderer.cu [4]) (tests.tex
+<../results//plots/256/omp_times.png, id=143, 462.528pt x 346.896pt>
 File: ../results//plots/256/omp_times.png Graphic file (type png)
 <use ../results//plots/256/omp_times.png>
 Package pdftex.def Info: ../results//plots/256/omp_times.png  used on input lin
-e 130.
+e 16.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/256/omp_speedup.png, id=155, 462.528pt x 346.896pt>
+<../results//plots/256/omp_speedup.png, id=144, 462.528pt x 346.896pt>
 File: ../results//plots/256/omp_speedup.png Graphic file (type png)
 <use ../results//plots/256/omp_speedup.png>
 Package pdftex.def Info: ../results//plots/256/omp_speedup.png  used on input l
-ine 135.
+ine 21.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
  [5]
-<../results//plots/256/cuda_times.png, id=168, 462.528pt x 346.896pt>
+<../results//plots/256/cuda_times.png, id=160, 462.528pt x 346.896pt>
 File: ../results//plots/256/cuda_times.png Graphic file (type png)
 <use ../results//plots/256/cuda_times.png>
 Package pdftex.def Info: ../results//plots/256/cuda_times.png  used on input li
-ne 144.
+ne 30.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/256/cuda_speedup.png, id=169, 462.528pt x 346.896pt>
+<../results//plots/256/cuda_speedup.png, id=161, 462.528pt x 346.896pt>
 File: ../results//plots/256/cuda_speedup.png Graphic file (type png)
 <use ../results//plots/256/cuda_speedup.png>
 Package pdftex.def Info: ../results//plots/256/cuda_speedup.png  used on input 
-line 149.
+line 35.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/256/results_times.png, id=170, 462.528pt x 346.896pt>
+<../results//plots/256/results_times.png, id=162, 462.528pt x 346.896pt>
 File: ../results//plots/256/results_times.png Graphic file (type png)
 <use ../results//plots/256/results_times.png>
 Package pdftex.def Info: ../results//plots/256/results_times.png  used on input
- line 158.
+ line 44.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/256/results_speedup.png, id=171, 462.528pt x 346.896pt>
+<../results//plots/256/results_speedup.png, id=163, 462.528pt x 346.896pt>
 File: ../results//plots/256/results_speedup.png Graphic file (type png)
 <use ../results//plots/256/results_speedup.png>
 Package pdftex.def Info: ../results//plots/256/results_speedup.png  used on inp
-ut line 163.
+ut line 49.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/512/omp_times.png, id=172, 462.528pt x 346.896pt>
+<../results//plots/512/omp_times.png, id=164, 462.528pt x 346.896pt>
 File: ../results//plots/512/omp_times.png Graphic file (type png)
 <use ../results//plots/512/omp_times.png>
 Package pdftex.def Info: ../results//plots/512/omp_times.png  used on input lin
-e 173.
+e 59.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/512/omp_speedup.png, id=173, 462.528pt x 346.896pt>
+<../results//plots/512/omp_speedup.png, id=165, 462.528pt x 346.896pt>
 File: ../results//plots/512/omp_speedup.png Graphic file (type png)
 <use ../results//plots/512/omp_speedup.png>
 Package pdftex.def Info: ../results//plots/512/omp_speedup.png  used on input l
-ine 178.
+ine 64.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
  [6 <../results//plots/256/omp_times.png> <../results//plots/256/omp_speedup.pn
 g> <../results//plots/256/cuda_times.png> <../results//plots/256/cuda_speedup.p
 ng> <../results//plots/256/results_times.png> <../results//plots/256/results_sp
 eedup.png>]
-<../results//plots/512/cuda_times.png, id=187, 462.528pt x 346.896pt>
+<../results//plots/512/cuda_times.png, id=179, 462.528pt x 346.896pt>
 File: ../results//plots/512/cuda_times.png Graphic file (type png)
 <use ../results//plots/512/cuda_times.png>
 Package pdftex.def Info: ../results//plots/512/cuda_times.png  used on input li
-ne 187.
+ne 73.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/512/cuda_speedup.png, id=188, 462.528pt x 346.896pt>
+<../results//plots/512/cuda_speedup.png, id=180, 462.528pt x 346.896pt>
 File: ../results//plots/512/cuda_speedup.png Graphic file (type png)
 <use ../results//plots/512/cuda_speedup.png>
 Package pdftex.def Info: ../results//plots/512/cuda_speedup.png  used on input 
-line 192.
+line 78.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/512/results_times.png, id=189, 462.528pt x 346.896pt>
+<../results//plots/512/results_times.png, id=181, 462.528pt x 346.896pt>
 File: ../results//plots/512/results_times.png Graphic file (type png)
 <use ../results//plots/512/results_times.png>
 Package pdftex.def Info: ../results//plots/512/results_times.png  used on input
- line 201.
+ line 87.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/512/results_speedup.png, id=190, 462.528pt x 346.896pt>
+<../results//plots/512/results_speedup.png, id=182, 462.528pt x 346.896pt>
 File: ../results//plots/512/results_speedup.png Graphic file (type png)
 <use ../results//plots/512/results_speedup.png>
 Package pdftex.def Info: ../results//plots/512/results_speedup.png  used on inp
-ut line 206.
+ut line 92.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/1024/omp_times.png, id=191, 462.528pt x 346.896pt>
+<../results//plots/1024/omp_times.png, id=183, 462.528pt x 346.896pt>
 File: ../results//plots/1024/omp_times.png Graphic file (type png)
 <use ../results//plots/1024/omp_times.png>
 Package pdftex.def Info: ../results//plots/1024/omp_times.png  used on input li
-ne 216.
+ne 102.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/1024/omp_speedup.png, id=192, 462.528pt x 346.896pt>
+<../results//plots/1024/omp_speedup.png, id=184, 462.528pt x 346.896pt>
 File: ../results//plots/1024/omp_speedup.png Graphic file (type png)
 <use ../results//plots/1024/omp_speedup.png>
 Package pdftex.def Info: ../results//plots/1024/omp_speedup.png  used on input 
-line 221.
+line 107.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
  [7 <../results//plots/512/omp_times.png> <../results//plots/512/omp_speedup.pn
 g> <../results//plots/512/cuda_times.png> <../results//plots/512/cuda_speedup.p
 ng> <../results//plots/512/results_times.png> <../results//plots/512/results_sp
 eedup.png>]
-<../results//plots/1024/cuda_times.png, id=207, 462.528pt x 346.896pt>
+<../results//plots/1024/cuda_times.png, id=199, 462.528pt x 346.896pt>
 File: ../results//plots/1024/cuda_times.png Graphic file (type png)
 <use ../results//plots/1024/cuda_times.png>
 Package pdftex.def Info: ../results//plots/1024/cuda_times.png  used on input l
-ine 230.
+ine 116.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/1024/cuda_speedup.png, id=208, 462.528pt x 346.896pt>
+<../results//plots/1024/cuda_speedup.png, id=200, 462.528pt x 346.896pt>
 File: ../results//plots/1024/cuda_speedup.png Graphic file (type png)
 <use ../results//plots/1024/cuda_speedup.png>
 Package pdftex.def Info: ../results//plots/1024/cuda_speedup.png  used on input
- line 235.
+ line 121.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/1024/results_times.png, id=209, 462.528pt x 346.896pt>
+<../results//plots/1024/results_times.png, id=201, 462.528pt x 346.896pt>
 File: ../results//plots/1024/results_times.png Graphic file (type png)
 <use ../results//plots/1024/results_times.png>
 Package pdftex.def Info: ../results//plots/1024/results_times.png  used on inpu
-t line 244.
+t line 130.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
-<../results//plots/1024/results_speedup.png, id=210, 462.528pt x 346.896pt>
+<../results//plots/1024/results_speedup.png, id=202, 462.528pt x 346.896pt>
 File: ../results//plots/1024/results_speedup.png Graphic file (type png)
 <use ../results//plots/1024/results_speedup.png>
 Package pdftex.def Info: ../results//plots/1024/results_speedup.png  used on in
-put line 249.
+put line 135.
 (pdftex.def)             Requested size: 176.40198pt x 132.30353pt.
- [8 <../results//plots/1024/omp_times.png> <../results//plots/1024/omp_speedup.
-png> <../results//plots/1024/cuda_times.png> <../results//plots/1024/cuda_speed
-up.png> <../results//plots/1024/results_times.png> <../results//plots/1024/resu
-lts_speedup.png>] [9]
-Overfull \hbox (24.2679pt too wide) in paragraph at lines 273--287
- [][] 
- []
-
-
-Overfull \hbox (24.2679pt too wide) in paragraph at lines 292--306
- [][] 
- []
-
-
-Overfull \hbox (24.2679pt too wide) in paragraph at lines 313--327
- [][] 
- []
-
-
-Overfull \hbox (27.30957pt too wide) in paragraph at lines 332--346
- [][] 
- []
-
-[10
-
-]
+) [8 <../results//plots/1024/omp_times.png> <../results//plots/1024/omp_speedup
+.png> <../results//plots/1024/cuda_times.png> <../results//plots/1024/cuda_spee
+dup.png> <../results//plots/1024/results_times.png> <../results//plots/1024/res
+ults_speedup.png>] [9]
 (C:/Users\loreb\Documents\IntellijProjects\CLionProjects\renderer_cuda\auxil\re
 lation.aux)
 Package rerunfilecheck Info: File `relation.out' has not changed.
-(rerunfilecheck)             Checksum: 3B8A70815BBACFAAA95808A25F7B0F0F;1342.
+(rerunfilecheck)             Checksum: F8CD40B25339DD1B40F7C3BA06F3B721;1253.
  ) 
 Here is how much of TeX's memory you used:
- 16143 strings out of 476331
- 275664 string characters out of 5787764
- 2202660 words of memory out of 12000000
- 36221 multiletter control sequences out of 15000+600000
+ 16117 strings out of 476331
+ 275258 string characters out of 5787764
+ 2188660 words of memory out of 12000000
+ 36199 multiletter control sequences out of 15000+600000
  519023 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,77p,494b,2182s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,77p,494b,2071s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\loreb\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1095.pk><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx12.pfb><C:/Users/loreb/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -722,9 +700,9 @@ fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/loreb/AppData/Local/Programs
 /MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/loreb/AppData/Local/P
 rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
 Output written on C:/Users\loreb\Documents\IntellijProjects\CLionProjects\rende
-rer_cuda\out\relation.pdf (10 pages, 738836 bytes).
+rer_cuda\out\relation.pdf (9 pages, 896540 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 113 named destinations out of 1000 (max. 500000)
- 202 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 274 PDF objects out of 1000 (max. 8388607)
+ 106 named destinations out of 1000 (max. 500000)
+ 194 words of extra memory for PDF output out of 10000 (max. 10000000)
 

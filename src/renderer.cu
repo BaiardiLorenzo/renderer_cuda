@@ -144,8 +144,6 @@ __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planes
     auto x = blockIdx.x * blockDim.x + threadIdx.x;
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
 
-    //printf("tx: %d, ty: %d, bx: %d, by: %d \n", threadIdx.x, threadIdx.y, blockIdx.x, blockIdx.y);
-
     if (x < width && y < height) {
         auto idx = y * width + x;
         auto oneMinusAlpha = 1.0f - ALPHA;
@@ -161,7 +159,6 @@ __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planes
             result.w = result.w * oneMinusAlpha + plane.w * ALPHA;
         }
         resultData[idx] = result;
-        //printf("%d, %d, %d, %d\n", resultData[idx].x, resultData[idx].y, resultData[idx].z, resultData[idx].w);
     }
 }
 
