@@ -15,7 +15,8 @@ find_package(OpenMP REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(renderer_cuda main.cu src/renderer.cu src/renderer.cuh
-        src/test.h)
+        src/test.h
+        src/test.cpp)
 
 target_link_libraries(renderer_cuda -lcudart -lcuda -lnppi -lnppc)
 target_link_libraries(renderer_cuda ${OpenCV_LIBS})

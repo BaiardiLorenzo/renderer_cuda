@@ -79,6 +79,9 @@
 		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/renderer.cuh">
 			<Option target="renderer_cuda"/>
 		</Unit>
+		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/test.cpp">
+			<Option target="renderer_cuda"/>
+		</Unit>
 		<Unit filename="C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/test.h">
 			<Option target="renderer_cuda"/>
 		</Unit>

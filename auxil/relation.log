@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  8 NOV 2023 21:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.31)  8 NOV 2023 22:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -722,7 +722,7 @@ fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/loreb/AppData/Local/Programs
 /MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/loreb/AppData/Local/P
 rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
 Output written on C:/Users\loreb\Documents\IntellijProjects\CLionProjects\rende
-rer_cuda\out\relation.pdf (10 pages, 738958 bytes).
+rer_cuda\out\relation.pdf (10 pages, 738836 bytes).
 PDF statistics:
  289 PDF objects out of 1000 (max. 8388607)
  113 named destinations out of 1000 (max. 500000)

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/main.cu" "CMakeFiles/renderer_cuda.dir/main.cu.obj" "gcc" "CMakeFiles/renderer_cuda.dir/main.cu.obj.d"
   "C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/renderer.cu" "CMakeFiles/renderer_cuda.dir/src/renderer.cu.obj" "gcc" "CMakeFiles/renderer_cuda.dir/src/renderer.cu.obj.d"
+  "C:/Users/loreb/Documents/IntellijProjects/CLionProjects/renderer_cuda/src/test.cpp" "CMakeFiles/renderer_cuda.dir/src/test.cpp.obj" "msvc" "CMakeFiles/renderer_cuda.dir/src/test.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

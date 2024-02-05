@@ -27,6 +27,7 @@ Circle* generateCircles(std::size_t n, int width, int height, int minRadius, int
 
 cv::Mat* generatePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles);
 
+
 // RENDERING
 double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes);
 
@@ -36,5 +37,8 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes);
 
 __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 
+double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes);
+
+__global__ void cudaKernelCombinePlanesColor(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
 
 #endif //RENDERER_CUDA_RENDERER_CUH
