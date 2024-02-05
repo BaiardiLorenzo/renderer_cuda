@@ -10,8 +10,8 @@ The project focuses on the verification of specific functions implemented in C++
 ## SRC
 This directory contains the main classes used for test execution:
 
-test.h - File used for modifying test values.
-renderer.cu - Main file for the development of parallelization methods.
+* test.h - File used for modifying test values.
+* renderer.cu - Main file for the development of parallelization methods.
 
 ## RESULT
 This folder collects the results obtained from various conducted tests.
