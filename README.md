@@ -1,20 +1,17 @@
 # Rendering: Parallel Programming for Machine Learning
-Il progetto consiste nel testing di determinate funzioni in c++ e cuda per la parallelizzazione del metodo di composing.
-![](results/img/cuda/10000.png)
+Il progetto si focalizza sulla verifica di specifiche funzioni implementate in C++ e CUDA 
+per la parallelizzazione del metodo di compositing.
+![Risultato del test con 10000 piani](results/img/cuda/10000.png)
+![Risultato del test con 8000 piani](results/img/cuda/8000.png)
 
 ## SRC
-Cartella contenente le principali classi per la valutazione dei test:
-* test.h - File utilizzato per la modifica dei valori di test
-* renderer.cu - File principale per lo sviluppo dei metodi di parallelizzazione
+Questa directory contiene le principali classi utilizzate per l'esecuzione dei test:
+
+* test.h - File utilizzato per la modifica dei valori di test.
+* renderer.cu - File principale per lo sviluppo dei metodi di parallelizzazione.
 
 ## RESULT
-Cartella contenente i risultati ottenuti dai vari test effettuai
-### CSV
-Dati dei risultati temporali e valutativi dei test
-### IMG
-Risultati di valutazione delle immagini
-### PLOTS
-Visulizzazione Semplificata dei risultati
+Questa cartella raccoglie i risultati ottenuti dai vari test effettuati.
 
 ## OUT  
 Cartella contente la relazione per il documento finale.
