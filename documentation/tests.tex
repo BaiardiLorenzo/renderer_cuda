@@ -8,6 +8,19 @@ Per il test con risoluzione 1024x1024, il numero di piani varia da 100 a 1000, c
 
 Le versioni delle librerie utilizzate sono OpenCV 4.6.0 e CUDA 11.8.
 
+\subsection{Generazione}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|c|}
+        & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
+        & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
+        \hline
+        Sequential & TODO & TODO & TODO & TODO & TODO & TODO \\
+        Parallel & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
+    \end{tabular}
+    \caption{\label{tab:gen}Tempi impiegati per la generazione dei cerchi e dei piani}
+\end{table}
+
 \subsection{256x256}\label{subsec:256x256}
 \begin{figure}[H]
     \centering

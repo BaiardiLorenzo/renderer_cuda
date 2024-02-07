@@ -25,7 +25,7 @@
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\scriptsize,
     breakatwhitespace=false,
     breaklines=true,
     captionpos=b,
@@ -48,65 +48,88 @@
 \begin{document}
 
     \maketitle
-    \clearpage
 
     \section{Introduzione}\label{sec:introduzione}
-    In questo documento, esamineremo attentamente l'efficacia dell'applicazione di diversi metodi di parallelizzazione
-    su problematiche comuni, analizzando in dettaglio i tempi di esecuzione associati.
-    Concentreremo la nostra valutazione sul metodo del compositing tra piani, utilizzando la libreria grafica OpenCV
-    come strumento principale per condurre le nostre analisi.
+    In questo documento, analizzeremo l'efficacia dell'applicazione di diversi metodi di parallelizzazione
+    sul problema di compositing tra piani, osservando in dettaglio i tempi di esecuzione associati.
+    Il task consiste nel costruire un Renderer di cerchi di colore diverso e parzialmente trasparenti, attraverso i quali si possano quindi intravedere i cerchi dei piani sottostanti.
 
     \section{Analisi del problema}\label{sec:analisi-del-problema}
-    Ciascun piano è caratterizzato da quattro canali di colore (RGBA), e su ogni piano saranno disegnati casualmente n cerchi.
-    Nel processo di compositing dei piani, sarà implementato un effetto di trasparenza, il quale dipenderà dalla
-    posizione relativa di ciascun piano all'interno della sommatoria.
-    Questa strategia mira a creare un effetto visivo di profondità.
-    L'immagine risultante sarà salvata nel formato PNG e si focalizzerà principalmente sul piano posizionato più in alto,
-    evidenziando così principalmente i cerchi associati a esso.
+    Introduciamo alcune definizioni che ci torneranno utili:
+    \begin{itemize}
+        \item $n$ : numero di cerchi per ogni piano
+        \item $N$ : numero di piani da sovrapporre
+        \item $D$ : dimensione 2D di ogni piano
+    \end{itemize}
+    Ciascun piano è caratterizzato da quattro canali di colore (RGBA, ovvero RGB con trasparenza), in modo da creare un effetto visivo i trasparenza.
+    Su ogni piano vengono disegnati $n$ cerchi di colore diverso, dopodiché tali immagini vengono sovrapposte dalla prima all'ultima.
+    In questa fase sarà utilizzato il canale di trasparenza e sarà importante l'ordine con cui verrà eseguito il compositing.
+    L'immagine risultante sarà un'insieme dei cerchi dell'ultimo piano, attraverso i quali si intravederanno quelli dei piani sottostanti.\\
+
+    Eseguiremo il task sia in maniera sequenziale che in modo parallelo, utilizzando diverse teniche e linguaggi di parallelizzazione.
+    In Figura \ref{fig:example-images} è mostrato un esempio del risultato ottenuto con $N=10000$ e $n=50$ usando i diversi metodi di parallelizzaione testati.
 
     \begin{figure}[h!]
-        \begin{minipage}{0.32\textwidth}
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{img/seq/10000}
             \caption{Sequenziale}
-        \end{minipage}%
+        \end{subfigure}%
         \hfill
-        \begin{minipage}{0.32\textwidth}
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{img/par/10000}
             \caption{OMP}
-        \end{minipage}%
+        \end{subfigure}%
         \hfill
-        \begin{minipage}{0.32\textwidth}
+        \begin{subfigure}{0.32\textwidth}
             \centering
             \includegraphics[width=\textwidth]{img/cuda/10000}
             \caption{CUDA}
-        \end{minipage}
-        \caption{Immagini di esempio}\label{fig:example-images}
+        \end{subfigure}
+        \caption{Immagini di esempio}
+        \label{fig:example-images}
     \end{figure}
 
-    \section{Metodi di parallelizzazione}\label{sec:metodi-di-parallelizazzione}
+    \section{Implementazione}
+    Abbiamo realizzato il progetto in linguaggio C++, facendo uso della libreria OpenCV per la realizzazione delle immagini.
+    Innanzitutto vengono generati casualmente i cerchi e inseriti nei rispettivi piani. Tutti tali dati vengono salvati in un array di matrici di OpenCV che poi saranno processati.
+    \lstinputlisting[language=c++, firstline=3, lastline=32,label={lst:sequential-gen}]{../src/renderer.cu}
+    Una volta generati i piani separatamente, questi vengono sovrapposti seuqnzialmente l'uno con l'altro, sommando a ogni iterazione il piano corrente al risultato dei piani precedenti.
+    \lstinputlisting[language=c++, firstline=70, lastline=95,label={lst:sequential-code}]{../src/renderer.cu}
+    Vediamo dunque in modo più specifico le tecniche di parallelizzazione utilizzate.
 
+    \section{Parallelizzazione}
     Per parallelizzare la problematica, abbiamo optato per l'adozione di due approcci distinti.
-    Nel primo scenario, abbiamo impiegato la libreria OPENMP, esplorando le variazioni nel numero di thread.
-    Nel secondo caso, abbiamo invece sfruttato il linguaggio di programmazione CUDA per eseguire calcoli in parallelo sulla scheda grafica.
-    \lstinputlisting[language=c++, firstline=39, lastline=63,label={lst:sequential-code}]{../src/renderer.cu}
+    Nel primo scenario, abbiamo impiegato la libreria OpenMP, che permette di eseguire più thread contemporaneamente sulla CPU della nostra macchina.
+    Nel secondo caso, abbiamo invece sfruttato il linguaggio di programmazione CUDA per eseguire calcoli in parallelo sulla GPU a disposizione.
 
-    \subsection{OPENMP}\label{subsec:openmp}
-    L'approccio fondamentale consiste nell'assegnare a ciascun thread la responsabilità di gestire la sommatoria di un
-    singolo pixel per ogni matrice.
-    Questo permette di mantenere l'ordine dei piani, mentre allo stesso tempo incrementa la velocità di rendering complessiva.
-    Ogni thread, di conseguenza, elaborerà il pixel risultante e procederà successivamente al calcolo del pixel successivo
-    una volta completata l'operazione corrente.
-    \lstinputlisting[language=c++, firstline=66, lastline=91,label={lst:parallel-code}]{../src/renderer.cu}
+    \subsection{OpenMP}\label{subsec:openmp}
+    OpenMP si tratta di un API per la programmazione parallela su sistemi a memoria condivisa.
+    È composto da un insieme di direttive di compilazione, routine di librerie e variabili d'ambiente che consentono di sviluppare applicazioni di calcolo parallele sfruttando i diversi core delle CPU moderne.\\
+    Poiché la generazione dei cerchi impiega tempi molto lunghi, abbiamo prima di tutto utilizzato OpenMP per velocizzare questo processo.
+    \lstinputlisting[language=c++, firstline=34, lastline=67, label={parallel-gen}]{../src/renderer.cu}
+    Come si può notare nello codice sopra, alla riga 10 è stata aggiunta una direttiva per la definizione di un loop parallelo, eseguito quindi da più thread contemporaneamente. Poiché l'ordine in cui i cerchi vengono generati non è importante, si tratta di un problema imbarazzantemente parallelizzabile.
+    Allo stesso modo, alla riga 24 è stato definito un secondo loop parallelo per suddividere l'assegnazione tra cerchi e piani tra thread diversi. In Tabella \ref{tab:gen} sono mostrati i tempi di esecuzione impiegati per la generazione variando il numero di piani e il numero di cerchi per piano.
+
+    Passiamo adesso ad analizzare il task principale, ovvero quello del compositing dei piani. Dopo aver esplorato varie possibilità, l'approccio migliore è risultato quello di assegnare a ciascun thread la sommatoria su tutti i piani di un singolo pixel per ogni matrice.
+    Questo metodo permette di mantenere l'ordine dei piani, poichè per ogni pixel la sommatoria viene eseguita sequenzialmente, ma allo stesso tempo incrementa la velocità di rendering complessiva dato che pixel diversi sono assegnati a thread diversi ed elaborati contemporaneamente.
+    Un thread, dunque, ad ogni iterazione utilizza il pixel risultante dai piani precedenti e somma a questo il pixel del piano corrente. Una volta completata l'operazione per tutti i piani il thread viene assegnato a un nuovo pixel finché la matrice 2D non si è esaurita.
+    \lstinputlisting[language=c++, firstline=98, lastline=123, label={lst:parallel-code}]{../src/renderer.cu}
+    Come si può notare dallo snippet di codice sopra, alla riga 8 è stata inserita una direttiva OpenMP per definire un loop parallelo. La clausola $collapse(2)$ permette di parallelizzare sui primi due cicli più esterni, ovvero sia sulle righe che sulle colonne della matrice.\\
 
     \subsection{CUDA}\label{subsec:cuda}
-    Attraverso un attento calcolo dei parametri di grid e block, miriamo a ottimizzare l'allocazione delle risorse sulla scheda grafica.
-    Definendo una suddivisione efficiente del lavoro tra i thread e i blocchi, intendiamo massimizzare la parallelizzazione,
-    sfruttando appieno la capacità computazionale offerta dalla scheda grafica.
-    Questo approccio mirato a una gestione ottimale delle risorse è essenziale per garantire prestazioni elevate nel contesto
-    del calcolo parallelo mediante CUDA\@.
-    \lstinputlisting[language=c++, firstline=143, lastline=163,label={lst:cuda-code}]{../src/renderer.cu}
+    CUDA è un architettura hardware per l'elaborazione parallela sviluppata da NVIDIA, che permette di sviluppare codice eseguibibile su GPU.
+    La GPU permette di fare affidamento su un gran numero di core a differenza del singolo processore e ciò permette di realizzare applicazioni parallele estremamente veloci.\\
+
+    Anche in questo caso abbiamo valutato diversi approcci, di cui alcuni sono risultati più efficienti di altri.
+    In particolare, il metodo che sembra ottenere il miglior speedup è mostrato nel seguente snippet di codice, in cui si affida ad ogni thread la sommatoria su tutti i piani di un solo pixel, analogamente a quanto fatto con OpenMP.
+    Costruiamo blocchi 8x8, 16x16 0 32x32 in modo da non superare i limite della nostra GPU di 1024 thread per blocco ma allo stesso tempo da avere sempre un numero di thread multiplo di 32 per ottenere un vantaggio nell'istanziamento degli warp.
+    Il numero di blocchi varia quindi in base alla dimensione di ogni blocco, in modo da assegnare ciascun thread un pixel della matrice.\\
+    \lstinputlisting[language=c++, firstline=150, lastline=153,label={lst:cuda-grid}]{../src/renderer.cu}
+    \lstinputlisting[language=c++, firstline=177, lastline=197,label={lst:cuda-code}]{../src/renderer.cu}
+    Notiamo che in questo modo la sommatoria sui piani viene eseguita in modo sequenziale da un singolo thread, dunque l'immagine risultate non subisce trasformazioni errate.
+
 
     \section{Caratteristiche della macchina}\label{sec:caratteristiche-della-macchina}
     La macchina utilizzata per effettuare i test è dotata di:
@@ -117,7 +140,7 @@
         \item Sistema operativo Windows 11
     \end{itemize}
 
-    \section{Tests}\label{sec:tests}
+    \section{Esperimenti e Risultati}\label{sec:tests}
     \input{tests}
 
     \section{Conclusioni}\label{sec:conclusioni}
