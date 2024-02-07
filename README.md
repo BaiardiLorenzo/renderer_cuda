@@ -1,21 +1,19 @@
 # Rendering: Parallel Programming for Machine Learning
-Il progetto si focalizza sulla verifica di specifiche funzioni implementate in C++ e CUDA 
-per la parallelizzazione del metodo di compositing.
+The project focuses on the verification of specific functions implemented in C++ and CUDA for the parallelization of the compositing method.
 
-
-<img src="results/img/seq/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
-<img src="results/img/par/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
-<img src="results/img/cuda/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
-<img src="results/img/cuda_color/10000.png" alt="Risultato del test con 10000 piani" width="256" height="256">
+<p align="center">
+  <img src="results/img/seq/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
+  <img src="results/img/par/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
+  <img src="results/img/cuda/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
+</p>
 
 ## SRC
-Questa directory contiene le principali classi utilizzate per l'esecuzione dei test:
-
-* test.h - File utilizzato per la modifica dei valori di test.
-* renderer.cu - File principale per lo sviluppo dei metodi di parallelizzazione.
+This directory contains the main classes used for test execution:
+* test.h - File used for modifying test values.
+* renderer.cu - Main file for the development of parallelization methods.
 
 ## RESULT
-Questa cartella raccoglie i risultati ottenuti dai vari test effettuati.
+This folder collects the results obtained from various conducted tests.
 
-## OUT  
-Cartella contente la relazione per il documento finale.
+## OUT
+Folder containing the report for the final document.
