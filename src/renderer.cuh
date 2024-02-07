@@ -41,4 +41,8 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes);
 
 __global__ void cudaKernelCombinePlanesColor(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
 
+__global__ void cudaKernelCombinePlanesColorTiling(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
+
+__global__ void cudaKernelCombinePlanesTiling(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
+
 #endif //RENDERER_CUDA_RENDERER_CUH

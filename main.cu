@@ -58,7 +58,7 @@ int main() {
         // TEST SEQUENTIAL
         double tSeq = sequentialRenderer(planes, test);
         printf("SEQUENTIAL Time: %f\n", tSeq);
-
+/*
         // TEST PARALLEL
         std::map<std::size_t, double> tPars;
         std::map<std::size_t, double> speedUps;
@@ -77,6 +77,7 @@ int main() {
             tPars.insert(std::pair<std::size_t, double>(i, tPar));
             speedUps.insert(std::pair<std::size_t, double>(i, speedUp));
         }
+        */
 
         // TEST CUDA
         double tCuda = cudaRenderer(planes, test);
@@ -93,7 +94,7 @@ int main() {
         printf("CUDA-COLOR Speedup: %f\n\n", speedUpCudaColor);
 
         // WRITE RESULTS TO TXT FILE
-        exportResults(RESULT_PATH, test, tSeq, tPars, speedUps, tCuda, speedUpCuda, tCudaColor, speedUpCudaColor);
+        //exportResults(RESULT_PATH, test, tSeq, tPars, speedUps, tCuda, speedUpCuda, tCudaColor, speedUpCudaColor);
 
         // DELETE ARRAY DYNAMIC ALLOCATED
         delete[] circles;

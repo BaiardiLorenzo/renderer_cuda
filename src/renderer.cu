@@ -58,6 +58,7 @@ double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes) {
     double time = omp_get_wtime() - start;
     // END
 
+    printf("%d %d %d %d\n", result.data[100], result.data[101], result.data[102], result.data[103]);
     cv::imwrite(SEQ_IMG_PATH + std::to_string(nPlanes) + ".png", result);
     return time;
 }
@@ -116,14 +117,15 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
         cudaMemcpy(d_planesData + i * width * height, planes[i].data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
 
     // GRID AND BLOCK DIMENSIONS
-    dim3 block(32, 32); // threads x block
+    dim3 block(4, 4); // threads x block
     dim3 grid(result.cols / block.x, result.rows/ block.y); // blocks
 
     // START
     double start = omp_get_wtime();
 
     // CUDA KERNEL
-    cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
+    //cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
+    cudaKernelCombinePlanesTiling<<<grid, block, nPlanes * block.x * block.y * sizeof(uchar4)>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
 
     double time = omp_get_wtime() - start;
@@ -136,6 +138,7 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
     cudaFree(d_planesData);
     cudaFree(d_resultData);
 
+    printf("%d %d %d %d\n", result.data[100], result.data[101], result.data[102], result.data[103]);
     cv::imwrite(CUDA_IMG_PATH + std::to_string(nPlanes) + ".png", result);
     return time;
 }
@@ -161,6 +164,39 @@ __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planes
         resultData[idx] = result;
     }
 }
+
+__global__ void cudaKernelCombinePlanesTiling(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes) {
+
+    extern __shared__ uchar4 planesData_ds[];
+
+    auto x = blockIdx.x * blockDim.x + threadIdx.x;
+    auto y = blockIdx.y * blockDim.y + threadIdx.y;
+    auto tx = threadIdx.x;
+    auto ty = threadIdx.y;
+
+    if (x < width && y < height) {
+
+        auto idx = y * width + x;
+        auto oneMinusAlpha = 1.0f - ALPHA;
+        auto result = resultData[idx];
+
+        for (int z = 0; z < nPlanes; z++){
+            auto idxP = z * width * height + idx;
+            planesData_ds[ty * blockDim.x * nPlanes + tx * nPlanes + z] = planesData[idxP];
+        }
+
+        for (int z = 0; z < nPlanes; z++) {
+            const auto &plane = planesData_ds[ty * blockDim.x * nPlanes + tx * nPlanes + z];
+
+            result.x = result.x * oneMinusAlpha + plane.x * ALPHA;
+            result.y = result.y * oneMinusAlpha + plane.y * ALPHA;
+            result.z = result.z * oneMinusAlpha + plane.z * ALPHA;
+            result.w = result.w * oneMinusAlpha + plane.w * ALPHA;
+        }
+        resultData[idx] = result;
+    }
+}
+
 
 double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
     cv::Mat result = TRANSPARENT_MAT;
@@ -198,14 +234,15 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
     cudaMemcpy(d_planesData, planesData, width * height * sizeof(uchar) * nPlanes * channels, cudaMemcpyHostToDevice);
 
     // GRID AND BLOCK DIMENSIONS
-    dim3 block(32, 32); // each thread manages a color across all planes
-    dim3 grid(result.rows / block.x, result.cols / block.y); // each block manages a pixel across all planes
+    dim3 block(8, 8); // each thread manages a color across all planes
+    dim3 grid(ceil(result.rows / block.x), ceil(result.cols / block.y)); // each block manages a pixel across all planes
 
     // START
     double start = omp_get_wtime();
 
     // CUDA KERNEL
-    cudaKernelCombinePlanesColor<<<grid, block, nPlanes * channels * sizeof(uchar)>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
+    //cudaKernelCombinePlanesColor<<<grid, block, nPlanes * channels * sizeof(uchar)>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
+    cudaKernelCombinePlanesColorTiling<<<grid, block, nPlanes * channels * block.x * block.y * sizeof(uchar)>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
 
     double time = omp_get_wtime() - start;
@@ -218,6 +255,7 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
     cudaFree(d_resultData);
     cudaFree(d_planesData);
 
+    printf("%d %d %d %d\n", result.data[100], result.data[101], result.data[102], result.data[103]);
     cv::imwrite(CUDA_COLOR_IMG_PATH + std::to_string(nPlanes) + ".png", result);
     return time;
 }
@@ -227,6 +265,7 @@ __global__ void cudaKernelCombinePlanesColor(uchar4* d_resultData, const uchar* 
 
     auto x = blockIdx.x * blockDim.x + threadIdx.x;
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
+    printf("%d, %d", x, y);
 
     if (x < width && y < height) {
         auto oneMinusAlpha = 1.0f - ALPHA;
@@ -242,5 +281,37 @@ __global__ void cudaKernelCombinePlanesColor(uchar4* d_resultData, const uchar* 
         }
         d_resultData[idxP] = {threadData[0], threadData[1], threadData[2], threadData[3]};
     }
+
+}
+
+__global__ void cudaKernelCombinePlanesColorTiling(uchar4* d_resultData, const uchar* d_planesData, int width, int height, int nPlanes) {
+
+    extern __shared__ uchar planesData_d[];
+    auto x = blockIdx.x * blockDim.x + threadIdx.x;
+    auto y = blockIdx.y * blockDim.y + threadIdx.y;
+    auto tx = threadIdx.x;
+    auto ty = threadIdx.y;
+
+    if (x < width && y < height) {
+        auto oneMinusAlpha = 1.0f - ALPHA;
+        int channels = 4;
+        auto idx = y * width * channels * nPlanes + x * channels * nPlanes;
+        auto idxP = y * width + x;
+        auto idxTP = ty * blockDim.x * channels * nPlanes + tx * channels * nPlanes;
+        uchar threadData[] = {d_resultData[idxP].x, d_resultData[idxP].y, d_resultData[idxP].z, d_resultData[idxP].w};
+        for (int c = 0; c < channels; c++){
+            for (int z = 0; z < nPlanes; z++) {
+                planesData_d[idxTP + c * nPlanes + z] = d_planesData[idx + c * nPlanes + z];
+            }
+        }
+        __syncthreads();
+        for (int c = 0; c < channels; c++){
+            for (int z = 0; z < nPlanes; z++) {
+                threadData[c] = threadData[c] * oneMinusAlpha + planesData_d[idxTP + c * nPlanes + z] * ALPHA;
+            }
+        }
+        d_resultData[idxP] = {threadData[0], threadData[1], threadData[2], threadData[3]};
+    }
+
 
 }
