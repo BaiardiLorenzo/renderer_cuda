@@ -23,9 +23,13 @@ struct Circle {
 };
 
 // GENERATION
-Circle* generateCircles(std::size_t n, int width, int height, int minRadius, int maxRadius);
+Circle* sequentialGenerateCircles(std::size_t n, int width, int height, int minRadius, int maxRadius);
 
-cv::Mat* generatePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles);
+cv::Mat* sequentialGeneratePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles);
+
+Circle* parallelGenerateCircles(std::size_t n, int width, int height, int minRadius, int maxRadius);
+
+cv::Mat* parallelGeneratePlanes(std::size_t nPlanes, Circle circles[], std::size_t nCircles);
 
 
 // RENDERING
@@ -41,8 +45,5 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes);
 
 __global__ void cudaKernelCombinePlanesColor(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
 
-__global__ void cudaKernelCombinePlanesColorTiling(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
-
-__global__ void cudaKernelCombinePlanesTiling(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 
 #endif //RENDERER_CUDA_RENDERER_CUH

@@ -93,9 +93,10 @@
 
     \section{Implementazione}
     Abbiamo realizzato il progetto in linguaggio C++, facendo uso della libreria OpenCV per la realizzazione delle immagini.
-    Innanzitutto vengono generati casualmente i cerchi e inseriti nei rispettivi piani. Tutti tali dati vengono salvati in un array di matrici di OpenCV che poi saranno processati.
+    Innanzitutto vengono generati casualmente i cerchi e inseriti nei rispettivi piani.
+    Tutti tali dati vengono salvati in un array di matrici di OpenCV che poi saranno processati.
     \lstinputlisting[language=c++, firstline=3, lastline=32,label={lst:sequential-gen}]{../src/renderer.cu}
-    Una volta generati i piani separatamente, questi vengono sovrapposti seuqnzialmente l'uno con l'altro, sommando a ogni iterazione il piano corrente al risultato dei piani precedenti.
+    Una volta generati i piani separatamente, questi vengono sovrapposti sequenzialmente l'uno con l'altro, sommando a ogni iterazione il piano corrente al risultato dei piani precedenti.
     \lstinputlisting[language=c++, firstline=70, lastline=95,label={lst:sequential-code}]{../src/renderer.cu}
     Vediamo dunque in modo più specifico le tecniche di parallelizzazione utilizzate.
 
@@ -108,13 +109,14 @@
     OpenMP si tratta di un API per la programmazione parallela su sistemi a memoria condivisa.
     È composto da un insieme di direttive di compilazione, routine di librerie e variabili d'ambiente che consentono di sviluppare applicazioni di calcolo parallele sfruttando i diversi core delle CPU moderne.\\
     Poiché la generazione dei cerchi impiega tempi molto lunghi, abbiamo prima di tutto utilizzato OpenMP per velocizzare questo processo.
-    \lstinputlisting[language=c++, firstline=34, lastline=67, label={parallel-gen}]{../src/renderer.cu}
+    \lstinputlisting[language=c++, firstline=34, lastline=67, label={lst:parallel-gen}]{../src/renderer.cu}
     Come si può notare nello codice sopra, alla riga 10 è stata aggiunta una direttiva per la definizione di un loop parallelo, eseguito quindi da più thread contemporaneamente. Poiché l'ordine in cui i cerchi vengono generati non è importante, si tratta di un problema imbarazzantemente parallelizzabile.
     Allo stesso modo, alla riga 24 è stato definito un secondo loop parallelo per suddividere l'assegnazione tra cerchi e piani tra thread diversi. In Tabella \ref{tab:gen} sono mostrati i tempi di esecuzione impiegati per la generazione variando il numero di piani e il numero di cerchi per piano.
 
-    Passiamo adesso ad analizzare il task principale, ovvero quello del compositing dei piani. Dopo aver esplorato varie possibilità, l'approccio migliore è risultato quello di assegnare a ciascun thread la sommatoria su tutti i piani di un singolo pixel per ogni matrice.
-    Questo metodo permette di mantenere l'ordine dei piani, poichè per ogni pixel la sommatoria viene eseguita sequenzialmente, ma allo stesso tempo incrementa la velocità di rendering complessiva dato che pixel diversi sono assegnati a thread diversi ed elaborati contemporaneamente.
-    Un thread, dunque, ad ogni iterazione utilizza il pixel risultante dai piani precedenti e somma a questo il pixel del piano corrente. Una volta completata l'operazione per tutti i piani il thread viene assegnato a un nuovo pixel finché la matrice 2D non si è esaurita.
+    Passiamo adesso ad analizzare il task principale, ovvero quello del compositing dei piani.
+    Dopo aver esplorato varie possibilità, l'approccio migliore è risultato quello di assegnare a ciascun thread la sommatoria su tutti i piani di un singolo pixel per ogni matrice.
+    Questo metodo permette di mantenere l'ordine dei piani, poiché per ogni pixel la sommatoria viene eseguita sequenzialmente, ma allo stesso tempo incrementa la velocità di rendering complessiva dato che pixel diversi sono assegnati a thread diversi ed elaborati contemporaneamente.
+    Un thread, dunque, a ogni iterazione utilizza il pixel risultante dai piani precedenti e somma a questo il pixel del piano corrente. Una volta completata l'operazione per tutti i piani il thread viene assegnato a un nuovo pixel finché la matrice 2D non si è esaurita.
     \lstinputlisting[language=c++, firstline=98, lastline=123, label={lst:parallel-code}]{../src/renderer.cu}
     Come si può notare dallo snippet di codice sopra, alla riga 8 è stata inserita una direttiva OpenMP per definire un loop parallelo. La clausola $collapse(2)$ permette di parallelizzare sui primi due cicli più esterni, ovvero sia sulle righe che sulle colonne della matrice.\\
 
