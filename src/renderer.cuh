@@ -37,7 +37,7 @@ double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes);
 
 double parallelRenderer(cv::Mat planes[], std::size_t nPlanes);
 
-double cudaRenderer(cv::Mat planes[], std::size_t nPlanes);
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize);
 
 __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 

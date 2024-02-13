@@ -88,6 +88,7 @@ def plot_csv(data, folder):
     # Plot CUDA Color
     plt.figure()
     plt.plot(data[test], data[t_seq], marker='o', label='Sequential')
+    plt.plot(data[test], data[t_cuda], marker='o', label=f'CUDA')
     plt.plot(data[test], data[t_cuda_color], marker='o', label=f'CUDA Color')
     plt.xlabel('Planes')
     plt.ylabel('Time (seconds)')
@@ -101,6 +102,7 @@ def plot_csv(data, folder):
     # Plot Speedup
     plt.figure()
     plt.plot(data[test], data[t_seq]/data[t_seq], marker='o', label='Sequential')
+    plt.plot(data[test], data[speedup_cuda], marker='o', label=f'CUDA')
     plt.plot(data[test], data[speedup_cuda_color], marker='o', label=f'CUDA Color')
     plt.xlabel('Planes')
     plt.ylabel('Speedup')

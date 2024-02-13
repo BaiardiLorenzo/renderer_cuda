@@ -46,6 +46,24 @@ void exportResultsCircle(const std::string& filename, std::size_t test, double t
     outfile.close();
 }
 
+void headerResultsBlocks(const std::string& filename){
+    std::ofstream outfile;
+    outfile.open(filename);
+    if(outfile.is_open())
+        outfile << "TEST;T_BLOCK_8;T_BLOCK_16;T_BLOCK_32\n";
+    outfile.close();
+}
+
+void exportResultsBlocks(const std::string& filename, std::size_t test, double tBlock8, double tBlock16, double tBlock32){
+    std::ofstream outfile;
+    outfile.open(filename, std::ios::out | std::ios::app);
+    if(outfile.is_open()){
+        outfile << std::fixed << std::setprecision(3);
+        outfile << test << ";" << tBlock8 << ";" << tBlock16 << ";" << tBlock32 << "\n";
+    }
+    outfile.close();
+}
+
 
 int main() {
 #ifdef _OPENMP
@@ -145,6 +163,31 @@ int main() {
 
         // WRITE RESULTS TO CSV FILE
         exportResultsCircle(RESULT_CIRCLES_PATH, test, seqTime, parTime, seqTime/parTime);
+    }
+
+    printf("TEST CUDA GRID");
+    for (auto test: testPlanes) { // 500, 5000
+        printf("TEST PLANES: %llu\n", test);
+        // GENERATION OF CIRCLES
+        auto circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        auto planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
+
+        // TEST CUDA BLOCKS
+        double tBlock8 = cudaRenderer(planes, test, 8);
+        printf("CUDA Time: %f\n", tBlock8);
+
+        double tBlock16 = cudaRenderer(planes, test, 16);
+        printf("CUDA Time: %f\n", tBlock16);
+
+        double tBlock32 = cudaRenderer(planes, test, 32);
+        printf("CUDA Time: %f\n", tBlock32);
+
+        // WRITE RESULTS TO TXT FILE
+        exportResults(RESULT_BLOCKS_PATH, test, tBlock8, tBlock16, tBlock32);
+
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+        delete[] planes;
     }
 
     return 0;

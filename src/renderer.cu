@@ -34,7 +34,6 @@ cv::Mat* sequentialGeneratePlanes(std::size_t nPlanes, Circle circles[], std::si
 Circle* parallelGenerateCircles(std::size_t n, int width, int height, int minRadius, int maxRadius) {
     auto* circles = new Circle[n];
     std::mt19937 generator(std::random_device{}());
-
     std::uniform_int_distribution<int> colorDistribution(0, 255);
     std::uniform_int_distribution<int> pointXDistribution(1, width);
     std::uniform_int_distribution<int> pointYDistribution(1, height);
@@ -47,7 +46,6 @@ Circle* parallelGenerateCircles(std::size_t n, int width, int height, int minRad
         int r = radiusDistribution(generator);
         circles[i] = Circle{color, center, r};
     }
-
     return circles;
 }
 
@@ -62,7 +60,6 @@ cv::Mat* parallelGeneratePlanes(std::size_t nPlanes, Circle circles[], std::size
             cv::circle(planes[i], circle.center, circle.r, circle.color, cv::FILLED, cv::LINE_AA);
         }
     }
-
     return planes;
 }
 
@@ -122,13 +119,13 @@ double parallelRenderer(cv::Mat planes[], std::size_t nPlanes) {
 }
 
 
-double cudaRenderer(cv::Mat planes[], std::size_t nPlanes) {
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, blockSize=32) {
     cv::Mat result = TRANSPARENT_MAT;
     int width = result.cols;
     int height = result.rows;
 
     // GRID AND BLOCK DIMENSIONS
-    dim3 block(32, 32); // threads x block
+    dim3 block(blockSize, blockSize); // threads x block
     dim3 grid(result.cols / block.x, result.rows/ block.y); // blocks
 
     uchar4* d_resultData;
@@ -290,5 +287,4 @@ __global__ void cudaKernelCombinePlanesColor(uchar4* d_resultData, const uchar* 
         }
         d_resultData[idxP] = {threadData[0], threadData[1], threadData[2], threadData[3]};
     }
-
 }
