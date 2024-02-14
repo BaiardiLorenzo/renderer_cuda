@@ -5,6 +5,7 @@
 #define RESULT_PATH ("../results/csv/result-"+std::to_string(WIDTH)+"-"+std::to_string(HEIGHT)+".csv")
 #define RESULT_CIRCLES_PATH ("../results/csv/result-"+std::to_string(WIDTH)+"-"+std::to_string(HEIGHT)+"-circles.csv")
 #define RESULT_BLOCKS_PATH ("../results/csv/result-"+std::to_string(WIDTH)+"-"+std::to_string(HEIGHT)+"-blocks.csv")
+#define RESULT_MEMCPY_PATH ("../results/csv/result-"+std::to_string(WIDTH)+"-"+std::to_string(HEIGHT)+"-memcpy.csv")
 #define SEQ_IMG_PATH "../results/img/seq/"
 #define PAR_IMG_PATH "../results/img/par/"
 #define CUDA_IMG_PATH "../results/img/cuda/"

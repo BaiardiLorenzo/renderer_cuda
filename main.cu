@@ -1,69 +1,106 @@
 #include "src/renderer.cuh"
 #include "src/test.h"
+#include "src/utils.h"
 #include <map>
 #include <iomanip>
 
-void headerResults(const std::string& filename, int nThreads){
-    std::ofstream outfile;
-    outfile.open(filename);
-    if(outfile.is_open())
-        outfile << "TEST;T_SEQ;";
-    for(int i=2; i<=nThreads; i+=2)
-        outfile << "T_PAR" << i << ";SPEEDUP" << i << ";";
-    outfile << "T_CUDA;SPEEDUP_CUDA;T_CUDA_COLOR;SPEEDUP_CUDA_COLOR\n";
-    outfile.close();
-}
+void testCudaMemcpy(std::vector<std::size_t> testPlanes){
+    printf("TEST CUDA MEMCPY");
+    for (auto test: testPlanes) { // 1000, 10000 (256x256, 512x512, 1024x1024)
+        printf("TEST PLANES: %llu\n", test);
 
-void exportResults(const std::string& filename, std::size_t test, double tSeq, const std::map<std::size_t, double>& tPars,
-                   std::map<std::size_t,double> speedUps, double tCuda, double speedUpCuda, double tCudaColor=-1, double speedUpCudaColor=-1){
-    std::ofstream outfile;
-    outfile.open(filename, std::ios::out | std::ios::app);
-    if(outfile.is_open()){
-        outfile << std::fixed << std::setprecision(3);
-        outfile << test << ";" << tSeq << ";";
-        for(auto tPar: tPars)
-            outfile << tPar.second << ";" << speedUps[tPar.first] << ";";
-        outfile << tCuda << ";" << speedUpCuda << ";" << tCudaColor << ";" << speedUpCudaColor << "\n";
+        // GENERATION OF CIRCLES
+        auto circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        auto planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
+
+        // TEST SEQUENTIAL
+        double tSeq = sequentialRenderer(planes, test);
+        printf("SEQUENTIAL Time: %f\n", tSeq);
+
+        // TEST CUDA BLOCKS
+        double tCuda = cudaRenderer(planes, test, 8);
+        printf("CUDA Time: %f\n", tCuda);
+
+        double speedUpCuda = tSeq / tCuda;
+        printf("CUDA-COLOR Speedup: %f\n\n", speedUpCuda);
+
+        double tCudaMemcpy = cudaRenderer(planes, test, 16);
+        printf("CUDA Time: %f\n", tCudaMemcpy);
+
+        double speedUpCudaMemcpy = tSeq / tCudaMemcpy;
+        printf("CUDA-COLOR Speedup: %f\n\n", speedUpCudaMemcpy);
+
+        // WRITE RESULTS TO TXT FILE
+        exportResultsMemcpy(RESULT_MEMCPY_PATH, test, tSeq, tCuda, tCudaMemcpy);
+
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+        delete[] planes;
     }
-    outfile.close();
 }
 
-void headerResultsCircle(const std::string& filename, int nThreads){
-    std::ofstream outfile;
-    outfile.open(filename);
-    if(outfile.is_open())
-        outfile << "TEST;T_SEQ;T_PAR;SPEEDUP\n";
-    outfile.close();
-}
+void testCudaBlocks(testPlanes){
+    printf("TEST CUDA GRID");
+    for (auto test: testPlanes) { // 500, 5000 (256x256, 512x512, 1024x1024)
+        printf("TEST PLANES: %llu\n", test);
 
-void exportResultsCircle(const std::string& filename, std::size_t test, double tSeq, double tPar, double speedUp){
-    std::ofstream outfile;
-    outfile.open(filename, std::ios::out | std::ios::app);
-    if(outfile.is_open()){
-        outfile << std::fixed << std::setprecision(3);
-        outfile << test << ";" << tSeq << ";" << tPar << ";" << speedUp << "\n";
+        // GENERATION OF CIRCLES
+        auto circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        auto planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
+
+        // TEST SEQUENTIAL
+        double tSeq = sequentialRenderer(planes, test);
+        printf("SEQUENTIAL Time: %f\n", tSeq);
+
+        // TEST CUDA BLOCKS
+        double tBlock8 = cudaRenderer(planes, test, 8);
+        printf("CUDA Time: %f\n", tBlock8);
+
+        double tBlock16 = cudaRenderer(planes, test, 16);
+        printf("CUDA Time: %f\n", tBlock16);
+
+        double tBlock32 = cudaRenderer(planes, test, 32);
+        printf("CUDA Time: %f\n", tBlock32);
+
+        // WRITE RESULTS TO TXT FILE
+        exportResultsBlocks(RESULT_BLOCKS_PATH, test, tSeq, tBlock8, tBlock16, tBlock32);
+
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+        delete[] planes;
     }
-    outfile.close();
 }
 
-void headerResultsBlocks(const std::string& filename){
-    std::ofstream outfile;
-    outfile.open(filename);
-    if(outfile.is_open())
-        outfile << "TEST;T_BLOCK_8;T_BLOCK_16;T_BLOCK_32\n";
-    outfile.close();
-}
+void testCircles(std::vector<std::size_t> testPlanes){
+    printf("TEST CIRCLES");       // n = 50, 500
+    for (auto test: testPlanes) { // N = 100, 1000, 10000 (256x256, 512x512, 1024x1024)
+        printf("TEST PLANES: %llu\n", test);
+        // GENERATION OF CIRCLES
+        double start = omp_get_wtime();
+        auto circles = sequentialGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        auto planes = sequentialGeneratePlanes(test, circles, N_CIRCLES);
+        double seqTime = omp_get_wtime() - start;
+        printf("SEQUENTIAL Time: %f\n", seqTime);
 
-void exportResultsBlocks(const std::string& filename, std::size_t test, double tBlock8, double tBlock16, double tBlock32){
-    std::ofstream outfile;
-    outfile.open(filename, std::ios::out | std::ios::app);
-    if(outfile.is_open()){
-        outfile << std::fixed << std::setprecision(3);
-        outfile << test << ";" << tBlock8 << ";" << tBlock16 << ";" << tBlock32 << "\n";
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+        delete[] planes;
+
+        // GENERATION OF CIRCLES
+        start = omp_get_wtime();
+        circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
+        planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
+        double parTime = omp_get_wtime() - start;
+        printf("PARALLEL Time: %f\n", parTime);
+
+        // DELETE ARRAY DYNAMIC ALLOCATED
+        delete[] circles;
+        delete[] planes;
+
+        // WRITE RESULTS TO CSV FILE
+        exportResultsCircle(RESULT_CIRCLES_PATH, test, seqTime, parTime, seqTime/parTime);
     }
-    outfile.close();
 }
-
 
 int main() {
 #ifdef _OPENMP
@@ -95,7 +132,7 @@ int main() {
         double tSeq = sequentialRenderer(planes, test);
         printf("SEQUENTIAL Time: %f\n", tSeq);
 
-        // TEST PARALLEL
+        // TEST OPENMP
         std::map<std::size_t, double> tPars;
         std::map<std::size_t, double> speedUps;
         for (int i=2; i<=omp_get_num_procs(); i+=2) {
@@ -136,59 +173,11 @@ int main() {
         delete[] planes;
     }
 
-    printf("TEST CIRCLES");
-    for (auto test: testPlanes) {
-        printf("TEST PLANES: %llu\n", test);
-        // GENERATION OF CIRCLES
-        double start = omp_get_wtime();
-        auto circles = sequentialGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
-        auto planes = sequentialGeneratePlanes(test, circles, N_CIRCLES);
-        double seqTime = omp_get_wtime() - start;
-        printf("SEQUENTIAL Time: %f\n", seqTime);
+    testCudaBlocks(testPlanes);
 
-        // DELETE ARRAY DYNAMIC ALLOCATED
-        delete[] circles;
-        delete[] planes;
+    testCudaMemcpy(testPlanes);
 
-        // GENERATION OF CIRCLES
-        start = omp_get_wtime();
-        circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
-        planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
-        double parTime = omp_get_wtime() - start;
-        printf("PARALLEL Time: %f\n", parTime);
-
-        // DELETE ARRAY DYNAMIC ALLOCATED
-        delete[] circles;
-        delete[] planes;
-
-        // WRITE RESULTS TO CSV FILE
-        exportResultsCircle(RESULT_CIRCLES_PATH, test, seqTime, parTime, seqTime/parTime);
-    }
-
-    printf("TEST CUDA GRID");
-    for (auto test: testPlanes) { // 500, 5000
-        printf("TEST PLANES: %llu\n", test);
-        // GENERATION OF CIRCLES
-        auto circles = parallelGenerateCircles(test * N_CIRCLES, WIDTH, HEIGHT, MIN_RADIUS, MAX_RADIUS);
-        auto planes = parallelGeneratePlanes(test, circles, N_CIRCLES);
-
-        // TEST CUDA BLOCKS
-        double tBlock8 = cudaRenderer(planes, test, 8);
-        printf("CUDA Time: %f\n", tBlock8);
-
-        double tBlock16 = cudaRenderer(planes, test, 16);
-        printf("CUDA Time: %f\n", tBlock16);
-
-        double tBlock32 = cudaRenderer(planes, test, 32);
-        printf("CUDA Time: %f\n", tBlock32);
-
-        // WRITE RESULTS TO TXT FILE
-        exportResults(RESULT_BLOCKS_PATH, test, tBlock8, tBlock16, tBlock32);
-
-        // DELETE ARRAY DYNAMIC ALLOCATED
-        delete[] circles;
-        delete[] planes;
-    }
+    testCircles(testPlanes);
 
     return 0;
 }
