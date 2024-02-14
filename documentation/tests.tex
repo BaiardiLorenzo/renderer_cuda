@@ -18,8 +18,9 @@ Inoltre nelle Tabelle \ref{tab:gen256}, \ref{tab:gen1024} riportate nell'appendi
         & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
         & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
         \hline
-        Sequential & TODO & TODO & TODO & TODO & TODO & TODO \\
-        Parallel & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
+        Sequential (s) & 0.111 & 0.979 & 1.078 & 9.536 & 10.913 & 94.030 \\
+        Parallel (s) & 0.058 & 0.196 & 0.211 & 1.992 & 2.081 & 18.388 \\
+        Speedup & 1.912 & 4.988 & 5.111 & 4.787 & \textbf{5.245} & \textbf{5.114} \\
     \end{tabular}
     \caption{\label{tab:gen512}Tempi impiegati per la generazione dei cerchi e dei piani}
 \end{table}
@@ -102,9 +103,9 @@ I risultati sono riportati in Tabella \ref{tab:cuda_blocks}.
         & \multicolumn{2}{|c|}{$256x256$} & \multicolumn{2}{|c|}{$512x512$} & \multicolumn{2}{|c|}{$1024x1024$} \\
         & $N=500$ & $N=5000$ & $N=500$ & $N=5000$ & $N=500$ & $N=5000$ \\
         \hline
-        $8x8$ & TODO & TODO & TODO & TODO & TODO & TODO \\
-        $16x16$ & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
-        $32x32$ & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
+        $8x8$ & 0.024 & 0.189 & 0.086 & 0.884 & 0.252 & \\
+        $16x16$ & \textbf{0.021} & \textbf{0.157} & 0.073 & \textbf{0.645} & \textbf{0.249} &  \\
+        $32x32$ & 0.022 & 0.161 & \textbf{0.066} & 0.657 & \textbf{0.249} &  \\
     \end{tabular}
     \caption{\label{tab:cuda_blocks}Tempi impiegati per il rendering con diverse dimensioni dei thread-blocks di CUDA}
 \end{table}

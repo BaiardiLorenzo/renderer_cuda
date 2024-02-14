@@ -37,13 +37,15 @@ double sequentialRenderer(cv::Mat planes[], std::size_t nPlanes);
 
 double parallelRenderer(cv::Mat planes[], std::size_t nPlanes);
 
-double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize);
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize=16);
 
 __global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes);
 
 double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes);
 
 __global__ void cudaKernelCombinePlanesColor(uchar4* resultData, const uchar* planesData, int width, int height, int nPlanes);
+
+double cudaRendererCopy(cv::Mat planes[], std::size_t nPlanes, int blockSize=16);
 
 
 #endif //RENDERER_CUDA_RENDERER_CUH

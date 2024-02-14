@@ -2,6 +2,7 @@
 // Created by thoma on 14/02/2024.
 //
 
+#include <fstream>
 #include "utils.h"
 
 void headerResults(const std::string& filename, int nThreads){
@@ -29,20 +30,20 @@ void exportResults(const std::string& filename, std::size_t test, double tSeq, c
     outfile.close();
 }
 
-void headerResultsCircle(const std::string& filename, int nThreads){
+void headerResultsCircle(const std::string& filename){
     std::ofstream outfile;
     outfile.open(filename);
     if(outfile.is_open())
-        outfile << "TEST;T_SEQ;T_PAR;SPEEDUP\n";
+        outfile << "TEST_P;TEST_C;T_SEQ;T_PAR;SPEEDUP\n";
     outfile.close();
 }
 
-void exportResultsCircle(const std::string& filename, std::size_t test, double tSeq, double tPar, double speedUp){
+void exportResultsCircle(const std::string& filename, std::size_t testP, std::size_t testC, double tSeq, double tPar, double speedUp){
     std::ofstream outfile;
     outfile.open(filename, std::ios::out | std::ios::app);
     if(outfile.is_open()){
         outfile << std::fixed << std::setprecision(3);
-        outfile << test << ";" << tSeq << ";" << tPar << ";" << speedUp << "\n";
+        outfile << testP << ";" << testC << ";" << tSeq << ";" << tPar << ";" << speedUp << "\n";
     }
     outfile.close();
 }
@@ -69,16 +70,16 @@ void headerResultsMemcpy(const std::string& filename){
     std::ofstream outfile;
     outfile.open(filename);
     if(outfile.is_open())
-        outfile << "TEST;T_SEQ;T_CUDA;T_CUDA_MEMCPY\n";
+        outfile << "TEST;T_SEQ;T_CUDA;SPEEDUP_CUDA;T_CUDA_MEMCPY;SPEEDUP_CUDA_MEMCPY\n";
     outfile.close();
 }
 
-void exportResultsMemcpy(const std::string& filename, std::size_t test, double tSeq, double tCuda, double tCudaMemcpy){
+void exportResultsMemcpy(const std::string& filename, std::size_t test, double tSeq, double tCuda, double speedUpCuda, double tCudaMemcpy, double speedUpCudaMemcpy){
     std::ofstream outfile;
     outfile.open(filename, std::ios::out | std::ios::app);
     if(outfile.is_open()){
         outfile << std::fixed << std::setprecision(3);
-        outfile << test << ";" << tSeq << ";" << tCuda << ";" << tCudaMemcpy << "\n";
+        outfile << test << ";" << tSeq << ";" << tCuda << ";" << speedUpCuda << ";" << tCudaMemcpy << ";" << speedUpCudaMemcpy << "\n";
     }
     outfile.close();
 }

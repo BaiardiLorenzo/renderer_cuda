@@ -17,6 +17,9 @@ plot_cuda_color_speedup = 'cuda_color_speedup.png'
 plot_results_times = 'results_times.png'
 plot_results_speedup = 'results_speedup.png'
 
+plot_cuda_memcpy_times = 'cuda_memcpy_times.png'
+plot_cuda_memcpy_speedup = 'cuda_memcpy_speedup.png'
+
 test = "TEST"
 t_seq = "T_SEQ"
 t_par = "T_PAR"
@@ -25,6 +28,8 @@ t_cuda = "T_CUDA"
 speedup_cuda = "SPEEDUP_CUDA"
 t_cuda_color = "T_CUDA_COLOR"
 speedup_cuda_color = "SPEEDUP_CUDA_COLOR"
+t_cuda_memcpy = "T_CUDA_MEMCPY"
+speedup_cuda_memcpy = "SPEEDUP_CUDA_MEMCPY"
 
 
 def plot_csv(data, folder):
@@ -144,12 +149,41 @@ def plot_csv(data, folder):
     plt.savefig(folder + plot_results_speedup)
     # plt.show()
 
+def plot_cuda_memcpy(data, folder):
+    data = pd.read_csv(data, sep=';')
+
+    plt.figure()
+    plt.plot(data[test], data[t_seq], marker='o', label='Sequential')
+    plt.plot(data[test], data[t_cuda], marker='o', label=f'CUDA')
+    plt.plot(data[test], data[t_cuda_memcpy], marker='o', label=f'CUDA Memcpy')
+    plt.xlabel('Planes')
+    plt.ylabel('Time (seconds)')
+    plt.title('Execution Times')
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    plt.savefig(folder + plot_cuda_memcpy_times)
+
+    plt.figure()
+    plt.plot(data[test], data[t_seq]/data[t_seq], marker='o', label='Sequential')
+    plt.plot(data[test], data[speedup_cuda], marker='o', label=f'CUDA')
+    plt.plot(data[test], data[speedup_cuda_memcpy], marker='o', label=f'CUDA Memcpy')
+    plt.xlabel('Planes')
+    plt.ylabel('Speedup')
+    plt.title('Speedups')
+    plt.legend()
+    plt.grid()
+    plt.tight_layout()
+    plt.savefig(folder + plot_cuda_memcpy_speedup)
 
 def main():
     img_sizes = [256, 512, 1024]
     for size in img_sizes:
         data = results_folder + str(size) + '-' + str(size) + '.csv'
         plot_csv(data, plot_folder + str(size) + "/")
+
+        memcpy_data = results_folder + str(size) + '-' + str(size) + '-memcpy.csv'
+        plot_cuda_memcpy(memcpy_data, plot_folder + str(size) + "/")
 
 
 if __name__ == '__main__':

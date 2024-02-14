@@ -119,7 +119,7 @@ double parallelRenderer(cv::Mat planes[], std::size_t nPlanes) {
 }
 
 
-double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, blockSize=32) {
+double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize) {
     cv::Mat result = TRANSPARENT_MAT;
     int width = result.cols;
     int height = result.rows;
@@ -142,9 +142,6 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, blockSize=32) {
         return -1;
     }
 
-    // START WITH MEMORY COPY
-    double startMemCpy = omp_get_wtime();
-
     // CUDA MEMORY COPY
     cudaMemcpy(d_resultData, result.data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
     for (std::size_t i = 0; i < nPlanes; i++)
@@ -157,11 +154,7 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, blockSize=32) {
     cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
 
-    double end = omp_get_wtime();
-    double time = end - start;
-    double timeMemCpy = end - startMemCpy;
-    printf("Time: %f\n", time);
-    printf("Time MemCpy: %f\n", timeMemCpy);
+    double time = omp_get_wtime() - start;
     // END
 
     // COPY RESULT FROM GPU TO CPU
@@ -204,7 +197,7 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
     int channels = 4;
 
     // GRID AND BLOCK DIMENSIONS
-    dim3 block(32, 32); // each thread manages a color across all planes
+    dim3 block(16, 16); // each thread manages a color across all planes
     dim3 grid(ceil(result.rows / block.x), ceil(result.cols / block.y)); // each block manages a pixel across all planes
 
     auto *planesData = new uchar[height * width * nPlanes * channels];
@@ -234,9 +227,6 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
         return -1;
     }
 
-    // START WITH MEMORY COPY
-    double startMemCpy = omp_get_wtime();
-
     // CUDA MEMORY COPY
     cudaMemcpy(d_resultData, result.data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
     cudaMemcpy(d_planesData, planesData, width * height * sizeof(uchar) * nPlanes * channels, cudaMemcpyHostToDevice);
@@ -248,12 +238,7 @@ double cudaRendererColor(cv::Mat planes[], std::size_t nPlanes) {
     cudaKernelCombinePlanesColor<<<grid, block, nPlanes * channels * sizeof(uchar)>>>(d_resultData, d_planesData, result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
 
-    double end = omp_get_wtime();
-    double time = end - start;
-    double timeMemCpy = end - startMemCpy;
-
-    printf("Time: %f\n", time);
-    printf("Time MemCpy: %f\n", timeMemCpy);
+    double time = omp_get_wtime() - start;
     // END
 
     // COPY RESULT FROM GPU TO CPU
@@ -287,4 +272,54 @@ __global__ void cudaKernelCombinePlanesColor(uchar4* d_resultData, const uchar* 
         }
         d_resultData[idxP] = {threadData[0], threadData[1], threadData[2], threadData[3]};
     }
+}
+
+
+double cudaRendererCopy(cv::Mat planes[], std::size_t nPlanes, int blockSize) {
+    cv::Mat result = TRANSPARENT_MAT;
+    int width = result.cols;
+    int height = result.rows;
+
+    // GRID AND BLOCK DIMENSIONS
+    dim3 block(blockSize, blockSize); // threads x block
+    dim3 grid(result.cols / block.x, result.rows/ block.y); // blocks
+
+    uchar4* d_resultData;
+    uchar4* d_planesData;
+
+    // INITIALIZATION OF GPU MEMORY
+    cudaMalloc((void**)&d_resultData, width * height * sizeof(uchar4));
+    auto planesMalloc = cudaMalloc((void**)&d_planesData, width * height * sizeof(uchar4) * nPlanes);
+    if (planesMalloc != cudaSuccess) {
+        std::cout << "ERROR: allocating memory for planes: " << cudaGetErrorString(planesMalloc) << std::endl;
+        // FREE MEMORY
+        cudaFree(d_planesData);
+        cudaFree(d_resultData);
+        return -1;
+    }
+
+    // START
+    double start = omp_get_wtime();
+
+    // CUDA MEMORY COPY
+    cudaMemcpy(d_resultData, result.data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
+    for (std::size_t i = 0; i < nPlanes; i++)
+        cudaMemcpy(d_planesData + i * width * height, planes[i].data, width * height * sizeof(uchar4), cudaMemcpyHostToDevice);
+
+    // CUDA KERNEL
+    cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
+    cudaDeviceSynchronize();
+
+    // COPY RESULT FROM GPU TO CPU
+    cudaMemcpy(result.data, d_resultData, width * height * sizeof(uchar4), cudaMemcpyDeviceToHost);
+
+    double time = omp_get_wtime() - start;
+    // END
+
+    // FREE MEMORY
+    cudaFree(d_planesData);
+    cudaFree(d_resultData);
+
+    cv::imwrite(CUDA_IMG_PATH + std::to_string(nPlanes) + ".png", result);
+    return time;
 }

@@ -12,8 +12,8 @@
 #define CUDA_COLOR_IMG_PATH "../results/img/cuda_color/"
 
 // IMAGES
-#define WIDTH 512
-#define HEIGHT 512
+#define WIDTH 1024
+#define HEIGHT 1024
 #define TRANSPARENT cv::Scalar(255, 255, 255, 0)
 #define TRANSPARENT_MAT cv::Mat(HEIGHT, WIDTH, CV_8UC4, TRANSPARENT)
 #define ALPHA 0.5
@@ -23,9 +23,9 @@
 #define MIN_RADIUS 10
 
 // FOR TESTING
-#define MAX_TESTS 10000
+#define MAX_TESTS 2800
 #define MIN_TEST 1000
-#define SPACE 1000
+#define SPACE 200
 #define N_CIRCLES 50
 
 #endif //RENDERER_CUDA_TEST_H
