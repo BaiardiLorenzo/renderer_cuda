@@ -10,7 +10,7 @@ Per il test con risoluzione 1024x1024, il numero di piani varia da 100 a 1000, c
 In questa sezione analizziamo gli esperimenti eseguiti con la versione sequenziale e quella parallelizzata con OpenMP.
 \subsubsection{Generazione dei cerchi}
 Prima di tutto ci siamo occupati di osservare i risultati ottenuti con la parallelizzazione della generazione dei piani e dei cerchi.
-Nella Tabella \ref{tab:gen512} sono riportati i tempi impiegati per la generazione su immagini di dimensioni 512x512.
+Nella Tabella \ref{tab:gen512} sono riportati i tempi impiegati per la generazione su immagini di dimensioni 512x512 utilizzando 16 thread.
 Inoltre nelle Tabelle \ref{tab:gen256}, \ref{tab:gen1024} riportate nell'appendice sono presenti gli stessi risultati ottenuti su immagini di dimensioni diverse.
 \begin{table}[H]
     \centering
@@ -18,9 +18,9 @@ Inoltre nelle Tabelle \ref{tab:gen256}, \ref{tab:gen1024} riportate nell'appendi
         & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
         & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
         \hline
-        Sequential (s) & 0.111 & 0.979 & 1.078 & 9.536 & 10.913 & 94.030 \\
-        Parallel (s) & 0.058 & 0.196 & 0.211 & 1.992 & 2.081 & 18.388 \\
-        Speedup & 1.912 & 4.988 & 5.111 & 4.787 & \textbf{5.245} & \textbf{5.114} \\
+        Sequential (s) & TODO & TODO & TODO & TODO & TODO & TODO \\
+        Parallel (s) & TODO & TODO & TODO & TODO & TODO & TODO \\
+        Speedup & TODO & TODO & TODO & TODO & \textbf{TODO} & \textbf{TODO} \\
     \end{tabular}
     \caption{\label{tab:gen512}Tempi impiegati per la generazione dei cerchi e dei piani}
 \end{table}
@@ -95,22 +95,24 @@ Abbiamo quindi eseguito degli esperimenti per determinare la dimensione ottimale
 In particolare, sappiamo che conviene utilizzare un numero di thread per blocco multiplo di 32 e relativamente grande, in modo da sfruttare al meglio le istanze degli warp.
 Allo stesso tempo la nostra GPU permette un massimo di 1024 thread per blocco.
 Abbiamo quindi testato le performance con blocchi di dimensione 8x8, 16x16 e 32x32.
-I risultati sono riportati in Tabella \ref{tab:cuda_blocks}.
+I risultati riportati in Tabella \ref{tab:cuda_blocks} mostrano i tempi di esecuzione dell'operazione di rendering al variare della dimensione delle immagini e del numero di piani.
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c|c|c|}
         & \multicolumn{6}{|c|}{Dimensione dell'immagine} \\
         & \multicolumn{2}{|c|}{$256x256$} & \multicolumn{2}{|c|}{$512x512$} & \multicolumn{2}{|c|}{$1024x1024$} \\
-        & $N=500$ & $N=5000$ & $N=500$ & $N=5000$ & $N=500$ & $N=5000$ \\
+        & $N=500$ & $N=5000$ & $N=500$ & $N=5000$ & $N=500$ & $N=2000$ \\
         \hline
-        $8x8$ & 0.024 & 0.189 & 0.086 & 0.884 & 0.252 & \\
-        $16x16$ & \textbf{0.021} & \textbf{0.157} & 0.073 & \textbf{0.645} & \textbf{0.249} &  \\
-        $32x32$ & 0.022 & 0.161 & \textbf{0.066} & 0.657 & \textbf{0.249} &  \\
+        $8x8$ & 0.024 & 0.189 & 0.086 & 0.884 & 0.252 & 2.507 \\
+        $16x16$ & \textbf{0.021} & \textbf{0.157} & 0.073 & \textbf{0.645} & \textbf{0.249} & 1.214 \\
+        $32x32$ & 0.022 & 0.161 & \textbf{0.066} & 0.657 & \textbf{0.249} & \textbf{1.107} \\
     \end{tabular}
-    \caption{\label{tab:cuda_blocks}Tempi impiegati per il rendering con diverse dimensioni dei thread-blocks di CUDA}
+    \caption{\label{tab:cuda_blocks}Tempi (secondi) impiegati per il rendering con diverse dimensioni dei thread-blocks di CUDA}
 \end{table}
 
-\dots TODO \dots
+Come ci aspettavamo, i blocchi 8x8 sono risultati in tutti i casi quelli meno performanti.
+I blocchi 16x16 sembrano fare leggermente meglio di quelli 32x32, anche se entrambi determinano tempi di esecuzione simili.
+Dunque per tutti i prossimi esperimenti abbiamo utilizzato blocchi 16x16, ovvero da 256 threads.
 
 \subsubsection{Rendering}
 Poiché abbiamo notato che la dimensione ottimale dei thread-blocks è 32x32, abbiamo eseguito tutti i prossimi test seguendo questa configurazione.
@@ -195,20 +197,22 @@ A differenza di ciò che ci aspettavamo, i risultati sono a favore della version
 Ciò può dipendere dal fatto che in questo caso ogni thread legge un elemento $uchar$ per volta e si trova quindi a eseguire il quadruplo delle letture dalla memoria globale rispetto alla versione precedente.
 
 \subsubsection{Copia dei dati in GPU}
-In tutti gli esperimenti che abbiamo eseguito, non abbiamo tenuto conto del tempo impiegato per la copia dei dati dalla CPU alla scheda grafica.
+In tutti gli esperimenti che abbiamo eseguito, non abbiamo tenuto conto del tempo impiegato per la copia dei dati dalla CPU alla scheda grafica e viceversa.
 Questo è un aspetto molto importante da considerare, in quanto potrebbe influenzare notevolmente le performance.
-In Figura \ref{fig:cuda_memcpy} sono mostrate le differenze tra i tempi di esecuzioni visti finora e quelli cmplessivi della copia dei dati in GPU.
+In Figura \ref{fig:cuda_memcpy} sono mostrate le differenze tra i tempi di esecuzioni visti finora e quelli complessivi della copia dei dati da e verso la GPU.
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../results/plots/256/cuda_color_times}
+        \includegraphics[width=\textwidth]{../results/plots/256/cuda_memcpy_times}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../results/plots/256/cuda_color_speedup}
+        \includegraphics[width=\textwidth]{../results/plots/256/cuda_memcpy_speedup}
     \end{subfigure}
     \caption{Tempi di esecuzione e speedup con CUDA-Color su immagini 256x256}
     \label{fig:cuda_memcpy}
 \end{figure}
-... TODO ...
+Come ci aspettavamo, se consideriamo il tempo impiegato per il passaggio dei dati, i tempi si allungano e lo speedup cala significativamente.
+Ciò è indubbiamente dovuto al fatto che la quantità di dati scambiati tra l'host e la GPU è molto pesante e su di essa vengono poi eseguite operazioni relativamente leggere.
+
