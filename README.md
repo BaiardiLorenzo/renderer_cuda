@@ -2,9 +2,9 @@
 The project focuses on the verification of specific functions implemented in C++ and CUDA for the parallelization of the compositing method.
 
 <p align="center">
-  <img src="results/img/seq/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
-  <img src="results/img/par/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
-  <img src="results/img/cuda/10000.png" alt="Test Result with 10000 planes" width="256" height="256">
+  <img src="results/img/seq/3000.png" alt="Test Result with 10000 planes" width="256" height="256">
+  <img src="results/img/par/3000.png" alt="Test Result with 10000 planes" width="256" height="256">
+  <img src="results/img/cuda/3000.png" alt="Test Result with 10000 planes" width="256" height="256">
 </p>
 
 ## SRC
