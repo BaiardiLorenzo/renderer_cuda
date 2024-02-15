@@ -2,7 +2,11 @@ Gli esperimenti sono stati condotti variando principalmente il numero di piani d
 Prima dell'esecuzione dei test, sono stati generati tutti i piani e i cerchi in modo da garantire un confronto accurato
 tra i diversi metodi di parallelizzazione.\\
 Le dimensioni delle immagini utilizzate sono 256x256, 512x512 e 1024x1024.
-Il numero di piani è stato variato da 1000 a un massimo di 10000, con un incremento di 1000 piani per i test con risoluzioni 256x256 e 512x512.
+Per gli esperimenti su OpenMP, il numero di piani è stato variato da 100 a un massimo di 1000,
+con un incremento di 100 piani.
+Nell'appendice~\ref{sec:rendering-openmp} sono riportati i risultati ottenuti con un massimo di 10000 piani.
+Per gli esperimenti su CUDA invece, il numero di piani è stato variato da 1000 a un massimo di 10000,
+con un incremento di 1000 piani per i test con risoluzioni 256x256 e 512x512.
 Per il test con risoluzione 1024x1024, il numero di piani varia in un range più piccolo.
 
 \subsection{OpenMP}\label{subsec:test_openmp}

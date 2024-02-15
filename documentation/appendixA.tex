@@ -9,7 +9,7 @@ Nelle Tabelle seguenti sono mostrati i tempi impiegati per generare i piani e i 
         \hline
         Sequential & 0.156 & 0.974 & 1.501 & 9.744 & 15.053 & 96.508 \\
         Parallel & 0.029 & 0.148 & 0.166 & 1.172 & 1.627 & 11.558 \\
-        Speedup & 5.379 & 6.581 & 9.042 & \textbf{8.314} & 9.252 & \textbf{8.350} \\
+        Speedup & 5.379 & 6.581 & \textbf{9.042} & 8.314 & \textbf{9.252} & 8.350 \\
     \end{tabular}
     \caption{\label{tab:gen256}Tempi impiegati per la generazione dei cerchi e dei piani su immagini 256x256}
 \end{table}
@@ -22,7 +22,50 @@ Nelle Tabelle seguenti sono mostrati i tempi impiegati per generare i piani e i 
         \hline
         Sequential & 1.067 & 2.625 & 11.061 & 23.820 & 108.643 & 273.588 \\
         Parallel & 0.106 & 0.443 & 0.979 & 3.598 & 106.181 & 118.353 \\
-        Speedup & 10.066 & 5.926 & 11.298 & \textbf{6.620} & 1.023 & \textbf{2.312} \\
+        Speedup & 10.066 & 5.926 & \textbf{11.298} & 6.620 & 1.023 & 2.312 \\
     \end{tabular}
     \caption{\label{tab:gen1024}Tempi impiegati per la generazione dei cerchi e dei piani su immagini 1024x1024}
 \end{table}
+
+\clearpage
+
+\section{Rendering OpenMP}\label{sec:rendering-openmp}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/256/results_times}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/256/results_speedup}
+    \end{subfigure}
+    \caption{Tempi di esecuzione e speedup con OpenMP su immagini 256x256}
+    \label{fig:omp_10000_256}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/512/results_times}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/512/results_speedup}
+    \end{subfigure}
+    \caption{Tempi di esecuzione e speedup con OpenMP su immagini 512x512}
+    \label{fig:omp_10000_512}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/1024/results_times}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../result_16/csv/test10000/plots/1024/results_speedup}
+    \end{subfigure}
+    \caption{Tempi di esecuzione e speedup con OpenMP su immagini 1024x1024}
+    \label{fig:omp_10000_1024}
+\end{figure}
