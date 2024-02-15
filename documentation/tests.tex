@@ -10,16 +10,16 @@ In questa sezione analizziamo gli esperimenti eseguiti con la versione sequenzia
 \subsubsection{Generazione dei cerchi}
 Prima di tutto ci siamo occupati di osservare i risultati ottenuti con la parallelizzazione della generazione dei piani e dei cerchi.
 Nella Tabella~\ref{tab:gen512} sono riportati i tempi impiegati per la generazione su immagini di dimensioni 512x512 utilizzando 16 thread.
-Inoltre nelle Tabelle~\ref{tab:gen256},~\ref{tab:gen1024} riportate nell'appendice sono presenti gli stessi risultati ottenuti su immagini di dimensioni diverse.
+Inoltre nelle Tabelle~\ref{tab:gen256}, ~\ref{tab:gen1024} riportate nell'appendice sono presenti gli stessi risultati ottenuti su immagini di dimensioni diverse.
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c|c|c|}
         & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
         & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
         \hline
-        Sequential (s) & TODO & TODO & TODO & TODO & TODO & TODO \\
-        Parallel (s) & TODO & TODO & TODO & TODO & TODO & TODO \\
-        Speedup & TODO & TODO & TODO & TODO & \textbf{TODO} & \textbf{TODO} \\
+        Sequential (s) & 0.349 & 1.404 & 3.332 & 14.071 & 33.372 & 151.407 \\
+        Parallel (s) & 0.045 & 0.180 & 0.326 & 1.701 & 3.257 & 17.310 \\
+        Speedup & 7.756 & 7.800 & 10.221 & 8.272 & \textbf{10.246} & \textbf{8.747} \\
     \end{tabular}
     \caption{\label{tab:gen512}Tempi impiegati per la generazione dei cerchi e dei piani su immagini 512x512}
 \end{table}

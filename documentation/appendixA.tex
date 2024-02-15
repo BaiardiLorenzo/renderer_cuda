@@ -1,5 +1,4 @@
-
-\section{Generazione dei cerchi}
+\section{Generazione dei cerchi}\label{sec:generazione-dei-cerchi}
 Nelle Tabelle seguenti sono mostrati i tempi impiegati per generare i piani e i cerchi al variare della dimensione dell'immagine.
 
 \begin{table}[H]
@@ -8,8 +7,9 @@ Nelle Tabelle seguenti sono mostrati i tempi impiegati per generare i piani e i 
         & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
         & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
         \hline
-        Sequential & TODO & TODO & TODO & TODO & TODO & TODO \\
-        Parallel & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
+        Sequential & 0.156 & 0.974 & 1.501 & 9.744 & 15.053 & 96.508 \\
+        Parallel & 0.029 & 0.148 & 0.166 & 1.172 & 1.627 & 11.558 \\
+        Speedup & 5.379 & 6.581 & 9.042 & \textbf{8.314} & 9.252 & \textbf{8.350} \\
     \end{tabular}
     \caption{\label{tab:gen256}Tempi impiegati per la generazione dei cerchi e dei piani su immagini 256x256}
 \end{table}
@@ -20,8 +20,9 @@ Nelle Tabelle seguenti sono mostrati i tempi impiegati per generare i piani e i 
         & \multicolumn{2}{|c|}{$N = 100$} & \multicolumn{2}{|c|}{$N = 1000$} & \multicolumn{2}{|c|}{$N = 10000$} \\
         & $n=50$ & $n=500$ & $n=50$ & $n=500$ & $n=50$ & $n=500$ \\
         \hline
-        Sequential & TODO & TODO & TODO & TODO & TODO & TODO \\
-        Parallel & TODO & TODO & TODO & \textbf{TODO} & TODO & \textbf{TODO} \\
+        Sequential & 1.067 & 2.625 & 11.061 & 23.820 & 108.643 & 273.588 \\
+        Parallel & 0.106 & 0.443 & 0.979 & 3.598 & 106.181 & 118.353 \\
+        Speedup & 10.066 & 5.926 & 11.298 & \textbf{6.620} & 1.023 & \textbf{2.312} \\
     \end{tabular}
     \caption{\label{tab:gen1024}Tempi impiegati per la generazione dei cerchi e dei piani su immagini 1024x1024}
 \end{table}
