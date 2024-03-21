@@ -151,7 +151,8 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize) {
     double start = omp_get_wtime();
 
     // CUDA KERNEL
-    cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,result.cols, result.rows, (int) nPlanes);
+    cudaKernelCombinePlanes<<<grid, block>>>(d_resultData, d_planesData,
+                                             result.cols, result.rows, (int) nPlanes);
     cudaDeviceSynchronize();
 
     double time = omp_get_wtime() - start;
@@ -168,7 +169,8 @@ double cudaRenderer(cv::Mat planes[], std::size_t nPlanes, int blockSize) {
     return time;
 }
 
-__global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData, int width, int height, int nPlanes) {
+__global__ void cudaKernelCombinePlanes(uchar4* resultData, const uchar4* planesData,
+                                        int width, int height, int nPlanes) {
     auto x = blockIdx.x * blockDim.x + threadIdx.x;
     auto y = blockIdx.y * blockDim.y + threadIdx.y;
 
